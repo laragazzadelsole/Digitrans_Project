@@ -1,14 +1,15 @@
 {
     "header": {
-      "survey_title": "Expectations of Impacts of the EEnergy Efficiency Project ",
-      "survey_description": "*Please be advised that this survey is resource-intensive and demands significant RAM for optimal performance. To avoid potential slowdowns, ensure all open windows and background programs are closed. Additionally, a stable internet connection is necessary for smooth operation.*  \n\nThe EENergy Efficiency project has been funded by the EU's Single Market Program (SMP) to support Small and Medium Enterprises (SMEs) in improving their energy efficiency performance. \nAll eligible 1,397 EENergy applicants receive support from a sustainability advisor with 703 of them being selected in a lottery to receive grants of up to 10.000 \u20AC to finance the implementation of their energy efficiency action plans. This direct financial support aims to achieve energy efficiency performance improvements through investments in technological solutions, specialized consultancy, and/or upskilling expertise.  \n\nThe program is part of a pilot study, in which the DG GROW aims to better understand the effectiveness of the financial grants provided. For this purpose, an impact evaluation is being conducted alongside the program implementation.  \n\nWith the following questions the evaluation team would like to better understand your beliefs regarding the average impact of receiving the 10.000 \u20AC grant, compared to receiving standard support from sustainability advisors. The team would appreciate if you could take time to fill it out.  \n\nThank you for your time and collaboration!"
+      "survey_title": "Supporting productivity of MSMEs in Bulgaria / Poland / Slovakia through digitalization and enhanced managerial capabilities",
+      "survey_description": "*Please be advised that this survey is resource-intensive and demands significant RAM for optimal performance. To avoid potential slowdowns, ensure all open windows and background programs are closed. Additionally, a stable internet connection is necessary for smooth operation.*  \n\nThe research will be conducted among beneficiaries of the Digitrans program, targeting micro and small firms with 5 to 35 employees from all sectors, with at least 12 months of business history, and at a foundational level of digital sophistication. Eligible program beneficiaries will be assigned to one of the following groups: \n- Group 1. Receiving a Financial Subsidy reimbursing costs of digital tools for general business functions up to EUR 2,000. \n- Group 2. Receiving both a Financial Subsidy and a Technical Assistance: an 8 weeks long training and advisory program focused on building technological capabilities, and learning Change Management skills to define problems, formulate solutions, prepare for investments in digital technologies, test them, and evaluate returns from investment in digital tools. \n- Group 3. Receiving Benchmarking Report on digitalization level. Benchmarking reports will be extended to firms in all three Groups. \n\nBy comparing beneficiaries who receive only Financial Subsidy (Group 1) against those who receive both Financial Subsidy and Technical Assistance (Group 2), as well as those receiving only a Benchmarking Report (Group 3), we seek to establish causal relationships between the financial and non-financial support and outcomes such as the level of digitalization, firm sales, and profits. This comparison will help determine the impact of the Financial Subsidy, the added value of Technical Assistance, against the effect of receiving only the Benchmarking Report. \n\nThe following questions regard your beliefs on the likely impact of the Financial Subsidy combined with Technical Assistance (Group 2), in comparison with being offered the Financial Subsidy alone (Group 1), or the Benchmarking Report (Group 3), regardless of whether a firm decides to participate in it. These questions ask for your opinion on how the outcomes might differ, on average, for firms in the different groups."
     },
+
 
     "question1": {
       "question_number": "Question 1",
       "key_form": "key_form1",
-      "title_question": "Question 1 - Annual kWh Consumption ",
-      "subtitle_question": "On average, how much do you think the grant will impact the quantity of annual kWh consumption after two years? \n_Please allocate the probabilities in the cells corresponding to your beliefs, they should add to 100%._ ",
+      "title_question": "Question 1 - Utilization of existing digital technologies",
+      "subtitle_question": "On average, how much do you think Financial Subsidy and Technical Assistance provided under Digitrans will impact the usage of the most sophisticated digital tool they had in at least one out of eight general business functions, compared to firms in the group who receive only Financial Subsidy? \n\nThe eight general business function include: administration, sourcing, planning, sales, marketing, payment, quality control, internal communication & project management. Please provide your answer in relation to percentage points' impacts. Be aware that percentage points are different from percentages. For example, imagine that after three months from the end of training and advisory: \n\n- 10% of GROUP 1 (that receives only Financial Subsidy) started to use the most sophisticated digital tool more frequently in at least one general business function, \n- 20% of GROUP 2 (that receives both the Financial Subsidy and Technical Assistance) did so, \n- and 5% of GROUP 3 (receives Benchmarking Report) did so. \n\n_Please allocate the probabilities to the PERCENTAGE POINTS in the cells corresponding to your beliefs. The values entered should add to 100%._  \nPERCENTAGE POINTS: there is a difference equal to 10 p.p.(=20% - 10%). \nPERCENTAGE: there is a difference equal to 100% (20% is double than 10%).",
       "column_1": "Percentage Points Change",
       "column_2": "Probabilities",
       "minor_value": "Less than -15%",
@@ -19,13 +20,13 @@
       "key": "data_editor1",
       "title_barchart": "Distribution of your Beliefs",
       "num_input_question": "num_input_question1",
-      "effect_size": "- What would be the minimum effect size you would want to see to consider scaling up the EEnergy Efficiency Project to more firms? Express your answer in percentage points, e.g. if you would want the annual consumption of energy to change by at least X% against the standard group, you should give X as your answer."},
+      "effect_size": "What would be the minimum impact you would want to see to offer the Financial Subsidy and Technical Assistance under Digitrans (GROUP 2) to more firms? \n- In comparison to GROUP 1 that receives the Financial Subsidy only. \n- In comparison to GROUP 3 that receives Benchmarking Report.  \n\nExpress your answer in percentage points. For example, if you would want the share of beneficiaries who started to use the most sophisticated digital tool they had in at least one out of eight general business functions to increase by at least X percentage points (against any of the two other groups), then you should give X as your answer."},
 
     "question2": {
       "question_number": "Question 2",
       "key_form": "key_form2",
-      "title_question": "Question 2 - Annual Renewable Energy Consumption",
-      "subtitle_question": "On average, how much do you think the grant would impact the annual consumption of renewable energy after two years? \n_Please allocate the probabilities in the cells corresponding to your beliefs, they should add to 100%._",
+      "title_question": "Question 2 - Adoption of new digital tools",
+      "subtitle_question": "On average, how much do you think the Financial Subsidy and Technical Assistance under Digitrans will impact the share of beneficiaries who have adopted a new digital tool for general business functions three months after receiving Digitrans, compared to firms in the group who receive only Financial Subsidy? Please note that percentage points (p.p.) are different from percentages. \nFor example, imagine that after three months from the end of training and advisory: \n\n- 20% of GROUP 1 (that receives only Financial Subsidy) adopted a new digital tool for general business functions, \n- 40% of GROUP 2 (that receives both the Financial Subsidy and Technical Assistance) did so, \n- and 5% of GROUP 3 (receives Benchmarking Report) did so. \n\n_Please allocate the probabilities to the PERCENTAGE POINTS in the cells corresponding to your beliefs. The values entered should add to 100%._",
       "column_1": "Percentage Points Change",
       "column_2": "Probabilities",
       "minor_value": "Less than -15%",
@@ -36,14 +37,14 @@
       "key": "data_editor2",
       "title_barchart": "Distribution of your Beliefs",
       "num_input_question": "num_input_question2",
-      "effect_size": "- What would be the minimum impact you would want to see in order to consider scaling up the EEnergy Efficiency Project to more firms? Express your answer in percentage points, e.g. if you would want the annual consumption of renewable energy to change by at least X%, you should give X as your answer."
+      "effect_size": "\n\nWhat would be the minimum impact you would want to see to offer the Financial Subsidy and Technical Assistance under Digitrans (GROUP 2) to more firms? \n\n- In comparison to GROUP 1 that receives Financial Subsidy only. \n- In comparison to GROUP 3 that receives Benchmarking Report.  \n\nExpress your answer in percentage points. For example, if you would want the share of beneficiaries who started to use the most sophisticated digital tool they had in at least one out of eight general business functions to increase by at least X percentage points (against any of the two other groups), then you should give X as your answer."
     },
 
     "question3": {
       "question_number": "Question 3",
       "key_form": "key_form3",
-      "title_question": "Question 3 - Solar Energy Installation",
-      "subtitle_question": "On average, how much do you think the grant would impact the likelihood of installing solar/photovoltaic panels after two years? _Please allocate the probabilities in the cells corresponding to your beliefs, they should add to 100%._",
+      "title_question": "Question 3 - Managerial practices",
+      "subtitle_question": "On average, how do you think the Financial Subsidy and Technical Assistance provided under Digitrans will impact the value of index of managerial practices three months after Digitrans, compared to beneficiaries who received only the Financial Subsidy? The index is based on factors such as the number of tracked KPIs, performance indicators, organizational measures, and other aspects measuring the distance of a firm's managerial practices from best practices. A higher index value indicates better managerial practices. \n\n_Please allocate the probabilities to the PERCENTAGES in the cells corresponding to your beliefs. The values entered should add to 100%._",
       "column_1": "Percentage Points Change",
       "column_2": "Probabilities",
       "minor_value": "Less than -15%",
@@ -54,15 +55,15 @@
       "key": "data_editor3",
       "title_barchart": "Distribution of your Beliefs",
       "num_input_question": "num_input_question3",
-      "effect_size": "- What would be the minimum impact you would want to see in order to consider scaling up the EEnergy Efficiency Project to more firms? Express your answer in percentage points, e.g. if you would want the likelihood of installing solar/photovoltaic panels to change by at least X% against the standard group, you should give X as your answer."
+      "effect_size": " \n\nWhat would be the minimum impact you would want to see to offer the Financial Subsidy and Technical Assistance under Digitrans (GROUP 2) to more firms? \n\n- In comparison to GROUP 1 that receives Financial Subsidy only.  \n- In comparison to GROUP 3 that receives Benchmarking Report.  \n\nExpress your answer in PERCENT. For example, if you would want the number of managerial practices to increase by at least X%, you should give X as your answer."
     },
 
     
       "question4": {
       "question_number": "Question 4",
       "key_form": "key_form4",
-      "title_question": "Question 4 - Business Process Innovation",
-      "subtitle_question": "On average, how much do you think the grant would impact the business process innovation after two years? _Please allocate the probabilities in the cells corresponding to your beliefs, they should add to 100%._",
+      "title_question": "Question 4 - Annual Revenue",
+      "subtitle_question": "On average, how much do you think the Financial Subsidy and Technical Assistance under Digitrans (GROUP 2) will impact the Annual Revenue of beneficiaries three months after they receive the support: \n\n- In comparison to GROUP 1 that receives Financial Subsidy only \n- In comparison to GROUP 3 that receives Benchmarking Report \n\nRevenue is usually defined as the total amount of money received by the firm from its business activities during the course of a year. This includes income from sales of goods and services, rental income, interest, royalties, fees, commissions, and any other business income. It does not include sales tax collected directly from customers and remitted to tax authorities.  \n\n_Please allocate the probabilities to the PERCENTAGES in the cells corresponding to your beliefs. The values entered should add to 100%._",
       "column_1": "Percentage Points Change",
       "column_2": "Probabilities",
       "minor_value": "Less than -15%",
@@ -73,14 +74,14 @@
       "key": "data_editor4",
       "title_barchart": "Distribution of your Beliefs",
       "num_input_question": "num_input_question4",
-      "effect_size": "- What would be the minimum impact you would want to see in order to consider scaling up the EEnergy Efficiency Project to more firms? Express your answer in percentage points, e.g. if you would want the business process innovation to change by at least X% against the standard group, you should give X as your answer."
+      "effect_size": "What would be the minimum impact you would want to see to offer the Financial Subsidy and Technical Assistance under Digitrans (GROUP 2) to more firms? \n\n- In comparison to GROUP 1 that receives Financial Subsidy only.  \n- In comparison to GROUP 3 that receives Benchmarking Report.  \n\nExpress your answer in PERCENT. For example, if you would want the number of managerial practices to increase by at least X%, you should give X as your answer."
     },
 
     "question5": {
       "question_number": "Question 5",
       "key_form": "key_form5",
-      "title_question": "Question 5 - Digital Skills",
-      "subtitle_question": "On average, how much do you think the grant would impact the digital skills after two years? _Please allocate the probabilities in the cells corresponding to your beliefs, they should add to 100%._ ",
+      "title_question": "Question 5 - Annual Net Profit",
+      "subtitle_question": "On average, how much do you think the Financial Subsidy and Technical Assistance under Digitrans (GROUP 2) will impact the Annual Net Profit of beneficiaries one year after they receive the training: \n\n- In comparison to GROUP 1 that receives Financial Subsidy only  \n- In comparison to GROUP 3 that receives Benchmarking Report \n\n Net profit is the amount of income that remains after all operating expenses, taxes, interest, and preferred stock dividends have been deducted from a company's total revenue. \n Please allocate the probabilities to the PERCENTAGES in the cells corresponding to your beliefs. The values entered should add to 100%. ",
       "column_1": "Percentage Points Change",
       "column_2": "Probabilities",
       "minor_value": "Less than -15%",
@@ -91,13 +92,13 @@
       "key": "data_editor5",
       "title_barchart": "Distribution of your Beliefs", 
       "num_input_question": "5",
-      "effect_size": "- What would be the minimum impact you would want to see in order to consider scaling up the EEnergy Efficiency Project to more firms? Express your answer in percentage points, e.g. if you would want the digital skills to change by at least X% against the standard group, you should give X as your answer."
+      "effect_size": "What would be the minimum impact you would want to see to offer the Financial Subsidy and Technical Assistance under Digitrans (GROUP 2) to more firms? \n\n- In comparison to GROUP 1 that receives Financial Subsidy only.  \n- In comparison to GROUP 3 that receives Benchmarking Report.  \n\nExpress your answer in PERCENT. For example, if you would want the number of managerial practices to increase by at least X%, you should give X as your answer."
     },
       "question6": {
       "question_number": "Question 6",
       "key_form": "key_form6",
-      "title_question": "Question 6 - Sustainability of the Business Model",
-      "subtitle_question": "On average, how much do you think the grant would impact the business model's sustainability after two years? _Please allocate the probabilities in the cells corresponding to your beliefs, they should add to 100%._",
+      "title_question": "Question 6 - Full Time Employees",
+      "subtitle_question": "On average, how much do you think the Financial Subsidy and Technical Assistance under Digitrans (GROUP 2) will impact the number of Full-Time Employees of beneficiaries one year after they receive the support: \n\n- In comparison to GROUP 1 that receives Financial Subsidy only \n\n- In comparison to GROUP 3 that receives Benchmarking Report. \n\n_Please allocate the probabilities to the PERCENTAGES in the cells corresponding to your beliefs. The values entered should add to 100%._",
       "column_1": "Percentage Points Change",
       "column_2": "Probabilities",
       "minor_value": "Less than -15%",
@@ -108,14 +109,14 @@
       "key": "data_editor6",
       "title_barchart": "Distribution of your Beliefs",
       "num_input_question": "num_input_question6",
-      "effect_size": "- What would be the minimum impact you would want to see in order to consider scaling up the EEnergy Efficiency Project to more firms? Express your answer in percentage points, e.g. if you would want the business model's sustainability change by at least X% against the standard group, you should give X as your answer."
+      "effect_size": "What would be the minimum impact you would want to see to offer the Financial Subsidy and Technical Assistance under Digitrans (GROUP 2) to more firms? \n\n- In comparison to GROUP 1 that receives Financial Subsidy only.  \n- In comparison to GROUP 3 that receives Benchmarking Report.  \n\nExpress your answer in PERCENT. For example, if you would want the number of managerial practices to increase by at least X%, you should give X as your answer."
     },
 
       "question7": {
       "question_number": "Question 7",
       "key_form": "key_form7",
-      "title_question": "Question 7 - Annual Revenue",
-      "subtitle_question": "On average, how much do you think that the grant would impact the annual revenue after two years since firms received the money, compared to firms from the standard group?  \nRevenue is usually defined as the total amount of money received by the firm from its business activities during the year. This includes income from sales of goods and services, rental income, interest, royalties, fees, commissions, and any other business income. It does not include sales tax collected directly from customers and remitted to tax authorities. _Please allocate the probabilities in the cells corresponding to your beliefs, they should add to 100%._",
+      "title_question": "Question 7 - Positive Impact on Employment in a Neighbouring Country",
+      "subtitle_question": "Imagine that we conduct a similar study in a neighbouring country. GROUP 2 receives Financial Subsidy as well as Technical Assistance and the comparison group only receives a Benchmarking Report (GROUP 3). Results indicate that companies in GROUP 2 increase employment by 10 percent compared to the control group. Researchers are very confident that the actual increase is between 5 and 15 percent. Would this information change your beliefs about the impact of the Financial Subsidy and Technical Assistance in Bulgaria / Poland / Slovakia? \n\n_Please look again at the answers you gave in Question 6. If you want to update your estimate insert the new distribution of probabilities, otherwise insert again the same distribution as you did above._",
       "column_1": "Percentage Points Change",
       "column_2": "Probabilities",
       "minor_value": "Less than -15%",
@@ -126,14 +127,14 @@
       "key": "data_editor7",
       "title_barchart": "Distribution of your Beliefs",
       "num_input_question": "num_input_question7",
-      "effect_size": "- What would be the minimum impact you would want to see in order to consider scaling up this program to more firms? Express your answer in percentage points, e.g. if you would want the annual revenue to change by at least X% against the standard group, you should give X as your answer."
+      "effect_size": "What would be the minimum impact you would want to see to offer the Financial Subsidy and Technical Assistance under Digitrans (GROUP 2) to more firms? \n\n- In comparison to GROUP 1 that receives Financial Subsidy only.  \n- In comparison to GROUP 3 that receives Benchmarking Report.  \n\nExpress your answer in PERCENT. For example, if you would want the number of managerial practices to increase by at least X%, you should give X as your answer."
     },
 
     "question8": {
       "question_number": "Question 8",
       "key_form": "key_form8",
-      "title_question": "Question 8 - Energy Cost-Revenue Ratio",
-      "subtitle_question": "Energy Cost-Revenue Ratio is a measure of how efficiently a company uses energy to generate revenue. It is calculated by dividing the total revenue by the total energy costs. A higher ratio indicates better energy efficiency, meaning the company generates more revenue per unit of energy cost. For instance, let us say we have two companies, A and B, each with the following figures for a given year:  \n\n- Company A:\n  - Revenue: 1,000,000\u20AC\n  - Energy Costs: 100,000\u20AC\n  - Energy-Revenue Cost Ratio: 1,000,000\u20AC / 100,000\u20AC = 10  \n\n- Company B:\n  - Revenue: 1,500,000\u20AC\n  - Energy Costs: 250,000\u20AC\n  - Energy-Revenue Cost Ratio: 1,500,000\u20AC / 250,000\u20AC = 6  \n\nIn this example, Company A has a higher Energy-Revenue cost ratio (10) compared to Company B (6), indicating that Company A is more efficient in generating revenue per unit of energy cost. On average, how much do you think the grant would impact the Energy-Revenue cost ratio after two years since firms received the money, compared to firms from the standard group? _Please allocate the probabilities in the cells corresponding to your beliefs, they should add up to 100%._",
+      "title_question": "Question 8 - Negative Impact on Employment in a Neighbouring Country",
+      "subtitle_question": "What if, instead, researchers had found that employment actually fell 5 percent after receiving Financial Subsidy as well as Technical Assistance (GROUP 2) in this other country relative to the group that receives only a Benchmarking Report (GROUP 3). the estimates suggest that the actual decrease is between -10 and 0 percent. Would this information change your beliefs about the impact of GROUP 2 in Bulgaria / Poland / Slovakia? \n\n_Please look again at the answers you gave in Question 6. If you want to update your estimate insert the new distribution of probabilities, otherwise insert again the same distribution as you did above._",
       "column_1": "Percentage Points Change",
       "column_2": "Probabilities",
       "minor_value": "Less than -15%",
@@ -144,14 +145,14 @@
       "key": "data_editor8",
       "title_barchart": "Distribution of your Beliefs",
       "num_input_question": "num_input_question8",
-      "effect_size": "- What would be the minimum effect size you would want to see to consider scaling up EEnergy Efficiency Project to more firms? Express your answer in percentage points, e.g. if you would want the Energy-Revenue cost ratio to change by at least X% against the standard group, you should give X as your answer. "
+      "effect_size": "What would be the minimum impact you would want to see to offer the Financial Subsidy and Technical Assistance under Digitrans (GROUP 2) to more firms? \n\n- In comparison to GROUP 1 that receives Financial Subsidy only.  \n- In comparison to GROUP 3 that receives Benchmarking Report.  \n\nExpress your answer in PERCENT. For example, if you would want the number of managerial practices to increase by at least X%, you should give X as your answer."
     },
 
     "question9": {
       "question_number": "Question 9",
       "key_form": "key_form11",
       "title_question": "Question 9 - Correlation Example",
-      "subtitle_question": "In statistics, the correlation is a measure of how strongly two outcomes are linearly related. The correlation lies between -1 and 1.  \nA correlation of -1 means that variables move perfectly in the opposite direction to one another, so that if one is high, the other is low.  \nA 0 correlation means no relationship between them, while a correlation of +1 means the two move linearly together.  \nA positive number between 0 and 1 means the two don't move perfectly together, but that you are somewhat more likely to see positive impacts in one variable when you see them somewhere else. \nTo make sure this is clear, let's first consider an example on the weather.  \nWhat do you think is the correlation between the temperature on a Saturday and on a Sunday for all the weekends in a year?  \n_Please allocate the probabilities in the cells corresponding to your beliefs._",
+      "subtitle_question": "In statistics, the correlation is a measure of how strongly two outcomes are linearly related. The correlation lies between -1 and 1. A correlation of -1 means that variables move perfectly in the opposite direction to one another, so that if one is high, the other is low. A 0 correlation means no relationship between them, while a correlation of +1 means the two move linearly together. A positive number between 0 and 1 means the two don't move perfectly together, but that you are somewhat more likely to see positive impacts in one variable when you see them somewhere else. To make sure this is clear, let's first consider an example on the weather. What do you think is the correlation between the temperature on a Saturday and on a Sunday for all the weekends in a year? \n\n_Please allocate the probabilities in the cells corresponding to your beliefs._",
       "column_1": "Correlation",
       "column_2": "Probabilities",
       "minor_value": "-1.0",
@@ -169,7 +170,7 @@
       "question_number": "Question 10",
       "key_form": "key_form10",
       "title_question": "Question 10 - Correlation Between Effects of the Program in Another Country",
-      "subtitle_question": "We would like you to express your beliefs about the **correlation** you would expect to see between effects of the program in your country and those in another country in the region.  \nA negative correlation (between -1 and 0) means that if a program has a negative impact somewhere else this makes it more likely it has a positive impact in your country.  \nA 0 correlation means no relationship between what you find elsewhere and what you expect to see in your country, while a positive correlation (between 0 and 1) means that a high impact somewhere else corresponds to also a high impact in your country. \n_Please allocate the probabilities in the cells corresponding to your beliefs._",
+      "subtitle_question": "We would like you to express your beliefs about the **correlation** you would expect to see between effects in Bulgaria / Poland / Slovakia and those in another country. A negative correlation means you think if the Financial Subsidy and Technical Assistance provided under Digitrans has a negative impact somewhere else this makes it more likely it has a positive impact in Bulgaria / Poland / Slovakia. A 0 correlation means no relationship between what you find elsewhere and what you expect to see in Bulgaria / Poland / Slovakia, while a positive correlation means if you think that when programs find a high impact somewhere else you will be more likely to also find a high impact in Bulgaria / Poland / Slovakia. \n\n_Please allocate the probabilities in the cells corresponding to your beliefs._",
       "column_1": "Correlation",
       "column_2": "Probabilities",
       "minor_value": "-1.0",

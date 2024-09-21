@@ -32,7 +32,7 @@ def personal_information():
     with col1:
         st.text_input("Please, enter your full name and surname:", key = 'user_full_name')
         st.text_input("Please, enter your working title:", key = 'user_position')
-        st.selectbox('Please, specify your professional category:', ('Policy implementer (EENergy consortium working package leaders)', 'Donor (European Commission)', 'Researcher', 'Sustainability Advisor', 'Entrepreneur/Firm Representative'), key="professional_category")
+        st.selectbox('Please, specify your professional category:', ('Government Official/Donor', 'Program Implementer/Practitioner', 'Researcher'), key="professional_category")
         st.number_input('Please, insert the years of experience you have working on energy efficiency:', min_value= 0, max_value= 70, key = 'years_of_experience')
 
 def sustainability_advisors_question():

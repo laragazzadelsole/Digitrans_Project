@@ -19,8 +19,6 @@ if st.session_state['consent']:
 
     personal_information()
 
-    sustainability_advisors_question()
-
     instructions()
 
     q1_config = config['question1']

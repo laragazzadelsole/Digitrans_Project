@@ -33,7 +33,7 @@ def personal_information():
         st.text_input("Please, enter your full name and surname:", key = 'user_full_name')
         st.text_input("Please, enter your working title:", key = 'user_position')
         st.selectbox('Please, specify your professional category:', ('Government Official/Donor', 'Program Implementer/Practitioner', 'Researcher'), key="professional_category")
-        st.number_input('Please, insert the years of experience you have working on energy efficiency:', min_value= 0, max_value= 70, key = 'years_of_experience')
+        st.number_input('Please, insert the years of experience you have working on digitalization:', min_value= 0, max_value= 70, key = 'years_of_experience')
 
 def sustainability_advisors_question():
         if st.session_state['professional_category'] == 'Sustainability Advisor':
@@ -81,7 +81,7 @@ def instructions():
     
     with table:
         # Create some example data as a Pandas DataFrame
-        values_column = ['< 20'] + list(range(21, 30)) + ['> 30']
+        values_column = ['< 15'] + list(range(16, 25)) + ['> 25']
         zeros_column = [0 for _ in values_column]
         zeros_column[4:9] = [5, 15, 45, 20, 15]
 

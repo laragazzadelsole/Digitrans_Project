@@ -8,7 +8,6 @@ from google.oauth2 import service_account
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from requests_oauthlib import OAuth2Session
-import csv
 from datetime import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -22,6 +21,7 @@ def initialize_session_state():
         st.session_state['consent'] = False
         st.session_state['submit'] = False
         st.session_state['No answer'] = ''
+        st.session_state['continue'] = False
     
     if 'data' not in st.session_state:
         st.session_state['data'] = {
@@ -29,14 +29,22 @@ def initialize_session_state():
             'User Working Position': [],
             'User Professional Category': [],
             'User Years of Experience': [],
-            'Minimum Effect Size Q1': [],
-            'Minimum Effect Size Q2': [],    
-            'Minimum Effect Size Q3': [],
-            'Minimum Effect Size Q4': [],
-            'Minimum Effect Size Q5': [],
-            'Minimum Effect Size Q6': [],
-            'Minimum Effect Size Q7': [],
-            'Minimum Effect Size Q8': [],
+            'Minimum Effect Size GROUP1 Q1': [],
+            'Minimum Effect Size GROUP3 Q1': [],
+            'Minimum Effect Size GROUP1 Q2': [],  
+            'Minimum Effect Size GROUP3 Q2': [],  
+            'Minimum Effect Size GROUP1 Q3': [],
+            'Minimum Effect Size GROUP3 Q3': [],
+            'Minimum Effect Size GROUP1 Q4': [],
+            'Minimum Effect Size GROUP3 Q4': [],
+            'Minimum Effect Size GROUP1 Q5': [],
+            'Minimum Effect Size GROUP3 Q5': [],
+            'Minimum Effect Size GROUP1 Q6': [],
+            'Minimum Effect Size GROUP3 Q6': [],
+            'Minimum Effect Size GROUP1 Q7': [],
+            'Minimum Effect Size GROUP3 Q7': [],
+            'Minimum Effect Size GROUP1 Q8': [],
+            'Minimum Effect Size GROUP3 Q8': [],
             #'Minimum Effect Size Q9': [],
             #'Minimum Effect Size Q10': [],
             'Cost-Benefit Ratio': [],
@@ -72,11 +80,13 @@ def create_question(jsonfile_name):
         x_axis.insert(6, "0%")
         x_axis[1] = '-0.99% to -0.81%'
         x_axis[7] = '0.01% to 0.19%'
+    elif jsonfile_name['min_value_graph'] == -30:
+        x_axis.insert(7, "0%")
+        x_axis[8] = '0.01% to 4.99%'
     elif jsonfile_name['min_value_graph'] == -15:
         x_axis.insert(4, "0%")
         x_axis[5] = '0.01% to 4.99%'
-    elif jsonfile_name['min_value_graph'] == 0:    
-        x_axis[1] = '0.01% to 4.99%'
+   
 
     y_axis = np.zeros(len(x_axis))
 
@@ -89,7 +99,7 @@ def create_question(jsonfile_name):
     with data_container:
         table, plot = st.columns([0.4, 0.6], gap="large")
         with table:
-            bins_grid = st.data_editor(data, key= jsonfile_name['key'], hide_index=True, use_container_width=True, disabled=[jsonfile_name['column_1']])
+            bins_grid = st.data_editor(data, key= jsonfile_name['data_editor_1'], hide_index=True, use_container_width=True, disabled=[jsonfile_name['column_1']])
             percentage_difference = 100 - sum(bins_grid[jsonfile_name['column_2']])
 
             # Display the counter
@@ -152,7 +162,9 @@ def create_question(jsonfile_name):
 
     return pd.DataFrame(bins_grid), percentage_difference, len(bins_grid)
 
-def create_question(jsonfile_name):
+#####################################################################
+
+def double_question(jsonfile_name):
     minor_value = str(jsonfile_name['minor_value'])
     min_value = jsonfile_name['min_value_graph']
     max_value = jsonfile_name['max_value_graph']
@@ -170,8 +182,7 @@ def create_question(jsonfile_name):
     elif jsonfile_name['min_value_graph'] == -15:
         x_axis.insert(4, "0%")
         x_axis[5] = '0.01% to 4.99%'
-    elif jsonfile_name['min_value_graph'] == 0:    
-        x_axis[1] = '0.01% to 4.99%'
+   
 
     y_axis = np.zeros(len(x_axis))
 
@@ -179,39 +190,41 @@ def create_question(jsonfile_name):
 
     st.subheader(jsonfile_name['title_question'])
     st.write(jsonfile_name['subtitle_question'])
-    
+
+
+    st.markdown("- In comparison to GROUP 1 that receives Financial Subsidy only.")
     data_container = st.container()
     with data_container:
         table, plot = st.columns([0.4, 0.6], gap="large")
         with table:
-            bins_grid = st.data_editor(data, key= jsonfile_name['key'], hide_index=True, use_container_width=True, disabled=[jsonfile_name['column_1']])
-            percentage_difference = 100 - sum(bins_grid[jsonfile_name['column_2']])
+            bins_grid_1 = st.data_editor(data, key= jsonfile_name['data_editor_1'], hide_index=True, use_container_width=True, disabled=[jsonfile_name['column_1']])
+            percentage_difference_1 = 100 - sum(bins_grid_1[jsonfile_name['column_2']])
 
             # Display the counter
-            if percentage_difference > 0:
-                missing_prob = f'<b style="font-family:sans-serif; color:Green; font-size: 20px; ">You still have to allocate {percentage_difference}% probability.</b>'
+            if percentage_difference_1 > 0:
+                missing_prob = f'<b style="font-family:sans-serif; color:Green; font-size: 20px; ">You still have to allocate {percentage_difference_1}% probability.</b>'
                 st.markdown(missing_prob, unsafe_allow_html=True)
                 
-            elif percentage_difference == 0:
+            elif percentage_difference_1 == 0:
                 total_prob = f'<b style="font-family:sans-serif; color:Green; font-size: 20px; ">You have allocated all probabilities!</b>'
                 st.markdown(total_prob, unsafe_allow_html=True)
             else:
-                exceeding_prob = f'<b style="font-family:sans-serif; color:Red; font-size: 20px; ">You have inserted {abs(percentage_difference)}% more, please review your percentage distribution.</b>'
+                exceeding_prob = f'<b style="font-family:sans-serif; color:Red; font-size: 20px; ">You have inserted {abs(percentage_difference_1)}% more, please review your percentage distribution.</b>'
                 st.markdown(exceeding_prob, unsafe_allow_html=True)
                       
         with plot:
             # Extract the updated values from the second column
-            updated_values = bins_grid[jsonfile_name['column_2']]
+            updated_values = bins_grid_1[jsonfile_name['column_2']]
 
             # Plot the updated values as a bar plot
             fig = go.Figure()
             fig.add_trace(go.Bar(
-                x=bins_grid[jsonfile_name['column_1']], 
+                x=bins_grid_1[jsonfile_name['column_1']], 
                 y=updated_values, 
                 marker_color='rgba(50, 205, 50, 0.9)',  # A nice bright green
                 marker_line_color='rgba(0, 128, 0, 1.0)',  # Dark green outline for contrast
                 marker_line_width=2,  # Width of the bar outline
-                text=[f"{p}" for p in bins_grid[jsonfile_name['column_2']]],  # Adding percentage labels to bars
+                text=[f"{p}" for p in bins_grid_1[jsonfile_name['column_2']]],  # Adding percentage labels to bars
                 textposition='auto',
                 name='Probability'
             ))
@@ -245,13 +258,85 @@ def create_question(jsonfile_name):
             )
             st.plotly_chart(fig)
 
-    return pd.DataFrame(bins_grid), percentage_difference, len(bins_grid)
+    st.markdown("- In comparison to GROUP 3 that receives Benchmarking Report.")
+    data_container = st.container()
+    with data_container:
+        table, plot = st.columns([0.4, 0.6], gap="large")
+        with table:
+            bins_grid_2 = st.data_editor(data, key= jsonfile_name['data_editor_2'], hide_index=True, use_container_width=True, disabled=[jsonfile_name['column_1']])
+            percentage_difference_2 = 100 - sum(bins_grid_2[jsonfile_name['column_2']])
+
+            # Display the counter
+            if percentage_difference_2 > 0:
+                missing_prob = f'<b style="font-family:sans-serif; color:Green; font-size: 20px; ">You still have to allocate {percentage_difference_2}% probability.</b>'
+                st.markdown(missing_prob, unsafe_allow_html=True)
+                
+            elif percentage_difference_2 == 0:
+                total_prob = f'<b style="font-family:sans-serif; color:Green; font-size: 20px; ">You have allocated all probabilities!</b>'
+                st.markdown(total_prob, unsafe_allow_html=True)
+            else:
+                exceeding_prob = f'<b style="font-family:sans-serif; color:Red; font-size: 20px; ">You have inserted {abs(percentage_difference_2)}% more, please review your percentage distribution.</b>'
+                st.markdown(exceeding_prob, unsafe_allow_html=True)
+                      
+        with plot:
+            # Extract the updated values from the second column
+            updated_values = bins_grid_2[jsonfile_name['column_2']]
+
+            # Plot the updated values as a bar plot
+            fig = go.Figure()
+            fig.add_trace(go.Bar(
+                x=bins_grid_2[jsonfile_name['column_1']], 
+                y=updated_values, 
+                marker_color='rgba(50, 205, 50, 0.9)',  # A nice bright green
+                marker_line_color='rgba(0, 128, 0, 1.0)',  # Dark green outline for contrast
+                marker_line_width=2,  # Width of the bar outline
+                text=[f"{p}" for p in bins_grid_2[jsonfile_name['column_2']]],  # Adding percentage labels to bars
+                textposition='auto',
+                name='Probability'
+            ))
+
+            fig.update_layout(
+                title={
+                    'text': "Probability distribution",
+                    'y':0.9,
+                    'x':0.5,
+                    'xanchor': 'center',
+                    'yanchor': 'top'
+                },
+                xaxis_title="Expectation Range",
+                yaxis_title="Probability (%)",
+                yaxis=dict(
+                    range=[0, 100], 
+                    gridcolor='rgba(255, 255, 255, 0.2)',  # Light grid on dark background
+                    showline=True,
+                    linewidth=2,
+                    linecolor='white',
+                    mirror=True
+                ),
+                xaxis=dict(
+                    tickangle=-45,
+                    showline=True,
+                    linewidth=2,
+                    linecolor='white',
+                    mirror=True
+                ),
+                font=dict(color='white'),  # White font color for readability
+            )
+            st.plotly_chart(fig)
+
+
+    return pd.DataFrame(bins_grid_1), pd.DataFrame(bins_grid_2), percentage_difference_1, percentage_difference_2, len(bins_grid_1), len(bins_grid_2)
+
+
 
 def effect_size_question(jsonfile_name):
     col1, _ = st.columns(2)
     with col1:
         st.markdown(jsonfile_name['effect_size'])
-        st.text_input("Please insert a number or write 'I don't know'.", key = jsonfile_name['num_input_question'])
+        st.markdown("- In comparison to GROUP 1 that receives the Financial Subsidy only.")
+        st.text_input("Please insert a number or write 'I don't know'.", key = jsonfile_name['num_input_question_1'])
+        st.markdown("- In comparison to GROUP 3 that receives the Benchmarking Report.")
+        st.text_input("Please insert a number or write 'I don't know'.", key = jsonfile_name['num_input_question_2'])
 
 def RCT_questions():
     st.subheader('Questions on RCTs Evaluation')
@@ -270,9 +355,9 @@ def RCT_questions():
     st.write('- Do you think allocating grants randomly amongst equally eligible potential beneficiaries is ethical? Did you think so before engaging in the RCT?')
     st.text_input('Please, write about your experience (max 500 characters).', max_chars=500, key = 'RCT_question6')
 
-def add_submission(updated_bins_question_1_df, updated_bins_question_2_df, updated_bins_question_3_df, updated_bins_question_4_df, updated_bins_question_5_df, updated_bins_question_6_df, updated_bins_question_7_df, updated_bins_question_8_df, updated_bins_question_9_df):
+def add_submission(updated_bins_question_1_df, updated_bins_question_2_df, updated_bins_question_3_df, updated_bins_question_1_4_df, updated_bins_question_2_4_df, updated_bins_question_1_5_df, updated_bins_question_2_5_df, updated_bins_question_1_6_df, updated_bins_question_2_6_df, updated_bins_question_7_df, updated_bins_question_8_df, updated_bins_question_9_df, updated_bins_question_10_df):
 
-    updated_bins_list = [updated_bins_question_1_df, updated_bins_question_2_df, updated_bins_question_3_df, updated_bins_question_4_df, updated_bins_question_5_df, updated_bins_question_6_df, updated_bins_question_7_df, updated_bins_question_8_df, updated_bins_question_9_df]
+    updated_bins_list = [updated_bins_question_1_df, updated_bins_question_2_df, updated_bins_question_3_df, updated_bins_question_1_4_df, updated_bins_question_2_4_df, updated_bins_question_1_5_df, updated_bins_question_2_5_df, updated_bins_question_1_6_df, updated_bins_question_2_6_df, updated_bins_question_7_df, updated_bins_question_8_df, updated_bins_question_9_df, updated_bins_question_10_df]
 
     def restructure_df(df, i):
         transposed_df = df.transpose()
@@ -297,14 +382,22 @@ def add_submission(updated_bins_question_1_df, updated_bins_question_2_df, updat
     USER_PROF_CATEGORY = 'User Professional Category'
     USER_POSITION = 'User Working Position'
     YEARS_OF_EXPERIENCE = 'User Years of Experience'
-    MIN_EFF_SIZE_Q1 = 'Minimum Effect Size Q1'
-    MIN_EFF_SIZE_Q2 = 'Minimum Effect Size Q2'
-    MIN_EFF_SIZE_Q3 = 'Minimum Effect Size Q3'
-    MIN_EFF_SIZE_Q4 = 'Minimum Effect Size Q4'
-    MIN_EFF_SIZE_Q5 = 'Minimum Effect Size Q5'
-    MIN_EFF_SIZE_Q6 = 'Minimum Effect Size Q6'
-    MIN_EFF_SIZE_Q7 = 'Minimum Effect Size Q7'
-    MIN_EFF_SIZE_Q8 = 'Minimum Effect Size Q8'
+    MIN_EFF_SIZE_GROUP1_Q1 = 'Minimum Effect Size GROUP1 Q1'
+    MIN_EFF_SIZE_GROUP1_Q2 = 'Minimum Effect Size GROUP1 Q2'
+    MIN_EFF_SIZE_GROUP1_Q3 = 'Minimum Effect Size GROUP1 Q3'
+    MIN_EFF_SIZE_GROUP1_Q4 = 'Minimum Effect Size GROUP1 Q4'
+    MIN_EFF_SIZE_GROUP1_Q5 = 'Minimum Effect Size GROUP1 Q5'
+    MIN_EFF_SIZE_GROUP1_Q6 = 'Minimum Effect Size GROUP1 Q6'
+    MIN_EFF_SIZE_GROUP1_Q7 = 'Minimum Effect Size GROUP1 Q7'
+    MIN_EFF_SIZE_GROUP1_Q8 = 'Minimum Effect Size GROUP1 Q8'
+    MIN_EFF_SIZE_GROUP3_Q1 = 'Minimum Effect Size GROUP3 Q1'
+    MIN_EFF_SIZE_GROUP3_Q2 = 'Minimum Effect Size GROUP3 Q2'
+    MIN_EFF_SIZE_GROUP3_Q3 = 'Minimum Effect Size GROUP3 Q3'
+    MIN_EFF_SIZE_GROUP3_Q4 = 'Minimum Effect Size GROUP3 Q4'
+    MIN_EFF_SIZE_GROUP3_Q5 = 'Minimum Effect Size GROUP3 Q5'
+    MIN_EFF_SIZE_GROUP3_Q6 = 'Minimum Effect Size GROUP3 Q6'
+    MIN_EFF_SIZE_GROUP3_Q7 = 'Minimum Effect Size GROUP3 Q7'
+    MIN_EFF_SIZE_GROUP3_Q8 = 'Minimum Effect Size GROUP3 Q8'
     #MIN_EFF_SIZE_Q9 = 'Minimum Effect Size Q9'
     #MIN_EFF_SIZE_Q10 = 'Minimum Effect Size Q10'
     COST_BENEFIT_RATIO = 'Cost-Benefit Ratio'
@@ -320,14 +413,22 @@ def add_submission(updated_bins_question_1_df, updated_bins_question_2_df, updat
     data[USER_POSITION].append(safe_var('user_position'))
     data[USER_PROF_CATEGORY].append(safe_var('professional_category'))
     data[YEARS_OF_EXPERIENCE].append(safe_var('years_of_experience'))
-    data[MIN_EFF_SIZE_Q1].append(safe_var('num_input_question1'))
-    data[MIN_EFF_SIZE_Q2].append(safe_var('num_input_question2'))
-    data[MIN_EFF_SIZE_Q3].append(safe_var('num_input_question3'))
-    data[MIN_EFF_SIZE_Q4].append(safe_var('num_input_question4'))
-    data[MIN_EFF_SIZE_Q5].append(safe_var('num_input_question5'))
-    data[MIN_EFF_SIZE_Q6].append(safe_var('num_input_question6'))
-    data[MIN_EFF_SIZE_Q7].append(safe_var('num_input_question7'))
-    data[MIN_EFF_SIZE_Q8].append(safe_var('num_input_question8'))
+    data[MIN_EFF_SIZE_GROUP1_Q1].append(safe_var('num_input_question_1_1'))
+    data[MIN_EFF_SIZE_GROUP1_Q2].append(safe_var('num_input_question_1_2'))
+    data[MIN_EFF_SIZE_GROUP1_Q3].append(safe_var('num_input_question_1_3'))
+    data[MIN_EFF_SIZE_GROUP1_Q4].append(safe_var('num_input_question_1_4'))
+    data[MIN_EFF_SIZE_GROUP1_Q5].append(safe_var('num_input_question_1_5'))
+    data[MIN_EFF_SIZE_GROUP1_Q6].append(safe_var('num_input_question_1_6'))
+    data[MIN_EFF_SIZE_GROUP1_Q7].append(safe_var('num_input_question_1_7'))
+    data[MIN_EFF_SIZE_GROUP1_Q8].append(safe_var('num_input_question_1_8'))
+    data[MIN_EFF_SIZE_GROUP3_Q1].append(safe_var('num_input_question_2_1'))
+    data[MIN_EFF_SIZE_GROUP3_Q2].append(safe_var('num_input_question_2_2'))
+    data[MIN_EFF_SIZE_GROUP3_Q3].append(safe_var('num_input_question_2_3'))
+    data[MIN_EFF_SIZE_GROUP3_Q4].append(safe_var('num_input_question_2_4'))
+    data[MIN_EFF_SIZE_GROUP3_Q5].append(safe_var('num_input_question_2_5'))
+    data[MIN_EFF_SIZE_GROUP3_Q6].append(safe_var('num_input_question_2_6'))
+    data[MIN_EFF_SIZE_GROUP3_Q7].append(safe_var('num_input_question_2_7'))
+    data[MIN_EFF_SIZE_GROUP3_Q8].append(safe_var('num_input_question_2_8'))
     #data[MIN_EFF_SIZE_Q9].append(safe_var('num_input_question9'))
     #data[MIN_EFF_SIZE_Q10].append(safe_var('num_input_question10'))
     data[COST_BENEFIT_RATIO].append(safe_var('cost_benefit'))
@@ -356,7 +457,7 @@ def add_submission(updated_bins_question_1_df, updated_bins_question_2_df, updat
     creds = ServiceAccountCredentials.from_json_keyfile_dict(secrets_to_json(), scope)
     client = gspread.authorize(creds)
  
-    sheet = client.open("Digitrans_Prior_Survey_Data").sheet1
+    sheet = client.open("Digitrans_Prior_Survey_Answers").sheet1
 
     column_names_list = concatenated_df.columns.tolist()
     #column_names = sheet.append_row(column_names_list)

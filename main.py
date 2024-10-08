@@ -21,6 +21,10 @@ if st.session_state['consent']:
 
     instructions()
 
+    continue_to_questions()
+
+if st.session_state['continue']:
+
     q1_config = config['question1']
     updated_bins_question_1_df, percentage_difference1, num_bins1 = create_question(q1_config)
 
@@ -40,20 +44,19 @@ if st.session_state['consent']:
         effect_size_question3 = effect_size_question(q3_config)
 
     q4_config = config['question4']
-    updated_bins_question_4_df, percentage_difference4, num_bins4 = create_question(q4_config)
+    updated_bins_question_1_4_df, updated_bins_question_2_4_df, percentage_difference_1_4, percentage_difference_2_4, num_bins_1_4, num_bins_2_4 = double_question(q4_config)
 
     if st.session_state['professional_category'] in ['Government Official/Donor', 'Researcher']:
         effect_size_question4 = effect_size_question(q4_config)
 
     q5_config = config['question5']
-    updated_bins_question_5_df, percentage_difference5, num_bins5 = create_question(q5_config)
+    updated_bins_question_1_5_df, updated_bins_question_2_5_df, percentage_difference_1_5, percentage_difference_2_5, num_bins_1_5, num_bins_2_5 = double_question(q5_config)
 
     if st.session_state['professional_category'] in ['Government Official/Donor', 'Researcher']:
         effect_size_question5 = effect_size_question(q5_config)
     
-
     q6_config = config['question6']
-    updated_bins_question_6_df, percentage_difference6, num_bins6 = create_question(q6_config)
+    updated_bins_question_1_6_df, updated_bins_question_2_6_df, percentage_difference_1_6, percentage_difference_2_6, num_bins_1_6, num_bins_2_6 = double_question(q6_config)
         
     if st.session_state['professional_category'] in ['Government Official/Donor', 'Researcher']:    
         effect_size_question6 = effect_size_question(q6_config)
@@ -108,7 +111,7 @@ if st.session_state['consent']:
 
     # Submission button + saving data 
     if all(percentage == 0 for percentage in percentage_differences):
-        submit = st.button("Submit", on_click = add_submission, args = ([updated_bins_question_1_df, updated_bins_question_2_df, updated_bins_question_3_df, updated_bins_question_4_df, updated_bins_question_5_df, updated_bins_question_6_df, updated_bins_question_7_df, updated_bins_question_8_df, updated_bins_question_9_df]))
+        submit = st.button("Submit", on_click = add_submission, args = ([updated_bins_question_1_df, updated_bins_question_2_df, updated_bins_question_3_df, updated_bins_question_1_4_df, updated_bins_question_2_4_df, updated_bins_question_1_5_df, updated_bins_question_2_5_df, updated_bins_question_1_6_df, updated_bins_question_2_6_df, updated_bins_question_7_df, updated_bins_question_8_df, updated_bins_question_9_df, updated_bins_question_10_df]))
 
     if st.session_state['submit']:
         st.success(f"Thank you for completing the Survey on {config['header']['survey_title']}!")

@@ -18,6 +18,9 @@ import plotly.graph_objs as go
 def add_consent():
     st.session_state['consent'] = True
 
+def click_continue():
+    st.session_state['continue'] = True
+
 def consent_form():
     st.markdown("""
     By submitting the form below you agree to your data being used for research purposes. 
@@ -27,7 +30,12 @@ def consent_form():
         st.markdown("You have consented. Select \"Next\" to start the survey.")
         st.button('Next', on_click=add_consent)
 
+def continue_to_questions():
+    st.markdown("Click to start the survey.")
+    st.button('Continue', on_click=click_continue)
+
 def personal_information():
+    st.subheader("Personal Data")
     col1, _ = st.columns(2)
     with col1:
         st.text_input("Please, enter your full name and surname:", key = 'user_full_name')
@@ -85,12 +93,12 @@ def instructions():
         zeros_column = [0 for _ in values_column]
         zeros_column[4:9] = [5, 15, 45, 20, 15]
 
-        data = {'Temperature': values_column, 'Probability': zeros_column}
+        data = {'Temperature': values_column, 'Probability (%)': zeros_column}
         df = pd.DataFrame(data)
 
         df['Temperature'] = df['Temperature'].astype('str')
     
-        st.data_editor(df, use_container_width=True, hide_index=True, disabled=('Temperature', "Probability"))
+        st.data_editor(df, use_container_width=True, hide_index=True, disabled=('Temperature', "Probability (%)"))
 
     st.write(CAPTION_INSTRUCTIONS)
 
@@ -98,13 +106,13 @@ def instructions():
         fig = go.Figure()
         fig.add_trace(go.Bar(
             x=values_column, 
-            y=df['Probability'], 
+            y=df['Probability (%)'], 
             marker_color='rgba(50, 205, 50, 0.9)',  # A nice bright green
             marker_line_color='rgba(0, 128, 0, 1.0)',  # Dark green outline for contrast
             marker_line_width=2,  # Width of the bar outline
-            text=[f"{p}" for p in df['Probability']],  # Adding percentage labels to bars
+            text=[f"{p}" for p in df['Probability (%)']],  # Adding percentage labels to bars
             textposition='auto',
-            name='Probability'
+            name='Probability (%)'
         ))
 
         fig.update_layout(
@@ -115,7 +123,7 @@ def instructions():
                 'xanchor': 'center',
                 'yanchor': 'top'
             },
-            xaxis_title="Expectation Range",
+            xaxis_title="Temperature",
             yaxis_title="Probability (%)",
             yaxis=dict(
                 range=[0, 100], 

@@ -49,8 +49,6 @@ elif page == "Question 1":
     q1_config = config['question1']
     answers1, percentage_difference1, num_bins1 = create_question(q1_config, safe_var('data1'))
     a = save_input_to_session_state('data1', answers1)
-    st.write(percentage_difference1)
-
 
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
         effect_size_question(q1_config, 1)

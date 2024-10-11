@@ -11,10 +11,10 @@ st.set_page_config(layout="wide")
 config = json.load(open('config.json'))
 
 initialize_session_state()
-#update_session_data()
+
 
 st.sidebar.title("Survey Index")
-page = st.sidebar.radio("Select ", [
+page = st.sidebar.radio("", [
     "Introduction",
     "Personal Information", 
     "Instructions", 
@@ -48,7 +48,8 @@ elif page == "Instructions":
 elif page == "Question 1":
     q1_config = config['question1']
     answers1, percentage_difference1, num_bins1 = create_question(q1_config, safe_var('data1'))
-    a = save_input_to_session_state('data1', answers1)
+    save_input_to_session_state('data1', answers1)
+    
 
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
         effect_size_question(q1_config, 1)
@@ -137,8 +138,8 @@ elif page == "Question 11":
     col1, _ = st.columns(2)
     with col1:
         cost_benefit_list = [f"1:{round(i, 1)}" for i in np.arange(0.6, 3.1, .2)]
-        cost_benefit_answer = st.select_slider("Please move the slider to indicate your preference.", cost_benefit_list, value=st.session_state.get('cost_benefit_question', min(cost_benefit_list)))
-        save_input_to_session_state('cost_benefit_question', cost_benefit_answer)
+        cost_benefit_question = st.select_slider("Please move the slider to indicate your preference.", cost_benefit_list, value=st.session_state.get('cost_benefit_question', min(cost_benefit_list)))
+        save_input_to_session_state('cost_benefit_question', cost_benefit_question)
 
 # Question 12 - Risk Aversion
 elif page == "Question 12":
@@ -147,8 +148,8 @@ elif page == "Question 12":
 
     col1, _ = st.columns(2)
     with col1:
-        risk_aversion_answers =st.slider("Please move the slider to indicate your preference.", 1, 10, key="risk_aversion", value=st.session_state.get('risk_aversion_question', 0))
-        save_input_to_session_state('risk_aversion_question', risk_aversion_answers)
+        risk_aversion_question =st.slider("Please move the slider to indicate your preference.", 1, 10, key="risk_aversion", value=st.session_state.get('risk_aversion_question', 0))
+        save_input_to_session_state('risk_aversion_question', risk_aversion_question)
 
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:    
         RCT_questions()
@@ -157,50 +158,87 @@ elif page == "Question 12":
 for _ in range(9):
     st.sidebar.write("")
 
-# Retrieve all answers from session state with default values
-user_name = st.session_state.get('user_full_name', [])
-user_position = st.session_state.get('user_position', [])
-user_profession = st.session_state.get('professional_category', [])
-user_experience = st.session_state.get('years_of_experience', [])
-answers1 = st.session_state.get('data1', [])
-answers2 = st.session_state.get('data2', [])
-answers3 = st.session_state.get('data3', [])
-answers4 = st.session_state.get('data4', [])
-answers4_1 = st.session_state.get('data4_1', [])
-answers5 = st.session_state.get('data5', [])
-answers5_1 = st.session_state.get('data5_1', [])
-answers6 = st.session_state.get('data6', [])
-answers6_1 = st.session_state.get('data6_1', [])
-answers7 = st.session_state.get('data7', [])
-answers8 = st.session_state.get('data8', [])
-answers9 = st.session_state.get('data9', [])
-answers10 = st.session_state.get('data10', [])
-min_eff_size1_1 = st.session_state.get('effect_size_question_1_answer_1', [])
-min_eff_size1_2 = st.session_state.get('effect_size_question_1_answer_2', [])
-min_eff_size2_1 = st.session_state.get('effect_size_question_2_answer_1', [])
-min_eff_size2_2 = st.session_state.get('effect_size_question_2_answer_2', [])
-min_eff_size3_1 = st.session_state.get('effect_size_question_3_answer_1', [])
-min_eff_size3_2 = st.session_state.get('effect_size_question_3_answer_2', [])
-min_eff_size4_1= st.session_state.get('effect_size_question_4_answer_1', [])
-min_eff_size4_2 = st.session_state.get('effect_size_question_4_answer_2', [])
-min_eff_size5_1 = st.session_state.get('effect_size_question_5_answer_1', [])
-min_eff_size5_2 = st.session_state.get('effect_size_question_5_answer_2', [])
-min_eff_size6_1 = st.session_state.get('effect_size_question_6_answer_1', [])
-min_eff_size6_2 = st.session_state.get('effect_size_question_6_answer_2', [])
-min_eff_size7_1 = st.session_state.get('effect_size_question_7_answer_1', [])
-min_eff_size7_2 = st.session_state.get('effect_size_question_7_answer_2', [])
-min_eff_size8_1 = st.session_state.get('effect_size_question_8_answer_1', [])
-min_eff_size8_2 = st.session_state.get('effect_size_question_8_answer_2', [])
+st.sidebar.button('submit', on_click=click_submit)
 
-# Add other answers if necessary, e.g., cost_benefit_question, risk_aversion_question
-
-#TODO: submit button and radio RCT question buttons
-
-
-# Submit button
-st.sidebar.button("Submit")# on_click=add_submission, args=(answers_df,))
-
-# Success message upon submission
+#SUBMISSION
 if st.session_state.get('submit'):
+
+    table_answers = {
+    "answers1": st.session_state.get('data1'),
+    "answers2": st.session_state.get('data2'),
+    "answers3": st.session_state.get('data3'),
+    "answers4": st.session_state.get('data4'),
+    "answers4_1": st.session_state.get('data4_1'),
+    "answers5": st.session_state.get('data5'),
+    "answers5_1": st.session_state.get('data5_1'),
+    "answers6": st.session_state.get('data6'),
+    "answers6_1": st.session_state.get('data6_1'),
+    "answers7": st.session_state.get('data7'),
+    "answers8": st.session_state.get('data8'),
+    "answers9": st.session_state.get('data9'),
+    "answers10": st.session_state.get('data10')
+    }
+
+    def get_answer_df(question_number, colname):
+        question_df = pd.DataFrame([list(table_answers[f'answers{question_number}'][colname]), list(table_answers[f'answers{question_number}']['Probability (%)'])])
+        return question_df.rename(columns=question_df.iloc[0], copy=False).iloc[1:].reset_index(drop=True)
+
+    df1 = get_answer_df('1', 'Percentage Points Change')
+    df2 = get_answer_df('2', 'Percentage Points Change')
+    df3 = get_answer_df('3', 'Percentage Change')
+    df4 = get_answer_df('4', 'Percentage Change')
+    df4_1 = get_answer_df('4_1', 'Percentage Change')
+    df5 = get_answer_df('5', 'Percentage Change')
+    df5_1 = get_answer_df('5_1', 'Percentage Change')
+    df6 = get_answer_df('6', 'Percentage Change')
+    df6_1 = get_answer_df('6_1', 'Percentage Change')
+    df7 = get_answer_df('7', 'Percentage Change')
+    df8 = get_answer_df('8', 'Percentage Change')
+    df9 = get_answer_df('9', 'Correlation')
+    df10 = get_answer_df('10', 'Correlation')
+
+
+    df_list = [df1, df2, df3, df4, df4_1, df5, df5_1, df6, df6_1, df7, df8, df9, df10]
+
+    #questions_df = pd.read_csv('question_df.csv', header=None)
+    questions_df = pd.concat(df_list, axis=1)
+
+    data = {
+        "user_name": st.session_state.get('user_full_name'),
+        "user_position": st.session_state.get('user_position'),
+        "user_profession": st.session_state.get('professional_category'),
+        "user_experience": st.session_state.get('years_of_experience'),
+        "min_eff_size1_1": st.session_state.get('effect_size_question_1_answer_1'),
+        "min_eff_size1_2": st.session_state.get('effect_size_question_1_answer_2'),
+        "min_eff_size2_1": st.session_state.get('effect_size_question_2_answer_1'),
+        "min_eff_size2_2": st.session_state.get('effect_size_question_2_answer_2'),
+        "min_eff_size3_1": st.session_state.get('effect_size_question_3_answer_1'),
+        "min_eff_size3_2": st.session_state.get('effect_size_question_3_answer_2'),
+        "min_eff_size4_1": st.session_state.get('effect_size_question_4_answer_1'),
+        "min_eff_size4_2": st.session_state.get('effect_size_question_4_answer_2'),
+        "min_eff_size5_1": st.session_state.get('effect_size_question_5_answer_1'),
+        "min_eff_size5_2": st.session_state.get('effect_size_question_5_answer_2'),
+        "min_eff_size6_1": st.session_state.get('effect_size_question_6_answer_1'),
+        "min_eff_size6_2": st.session_state.get('effect_size_question_6_answer_2'),
+        "min_eff_size7_1": st.session_state.get('effect_size_question_7_answer_1'),
+        "min_eff_size7_2": st.session_state.get('effect_size_question_7_answer_2'),
+        "min_eff_size8_1": st.session_state.get('effect_size_question_8_answer_1'),
+        "min_eff_size8_2": st.session_state.get('effect_size_question_8_answer_2'),
+        "cost_benefit_answer": st.session_state.get('cost_benefit_question'),
+        "risk_aversion_answer": st.session_state.get('risk_aversion_question'),
+        "RCT_Q1_answer": st.session_state.get('RCT_Q1'),
+        "RCT_Q2_answer": st.session_state.get('RCT_Q2'),
+        "RCT_Q3_answer": st.session_state.get('RCT_Q3'),
+        "RCT_Q4_answer": st.session_state.get('RCT_Q4'),
+        "RCT_Q5_answer": st.session_state.get('input_RCT_Q5'),
+        "RCT_Q6_answer": st.session_state.get('input_RCT_Q6'),
+    }
+
+    personal_data_df = pd.DataFrame([data]).iloc[:, : 4]
+    additional_questions_df = pd.DataFrame([data]).iloc[:, 4: ]
+    final_df = pd.concat([personal_data_df, questions_df, additional_questions_df], axis=1)
+
+    add_submission(final_df)
+   
     st.success(f"Thank you for completing the Survey on {config['header']['survey_title']}!")
 

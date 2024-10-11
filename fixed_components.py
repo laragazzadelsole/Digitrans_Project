@@ -20,8 +20,8 @@ def safe_var(key):
 def add_consent():
     st.session_state['consent'] = True
 
-def click_continue():
-    st.session_state['continue'] = True
+def click_submit():
+    st.session_state['submit'] = True
 
 def consent_form():
     st.markdown("""

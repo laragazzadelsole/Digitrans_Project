@@ -155,10 +155,12 @@ elif page == "Question 12":
         RCT_questions()
 
 # Add some spacing in the sidebar
-for _ in range(9):
+for _ in range(4):
     st.sidebar.write("")
 
-st.sidebar.button('submit', on_click=click_submit)
+st.sidebar.write("Please, go through all the questions to make sure you completed all of them before clicking Submit.")
+
+st.sidebar.button('Submit', on_click=click_submit)
 
 #SUBMISSION
 if st.session_state.get('submit'):
@@ -240,5 +242,5 @@ if st.session_state.get('submit'):
 
     add_submission(final_df)
    
-    st.success(f"Thank you for completing the Survey on {config['header']['survey_title']}!")
+    st.sidebar.success(f"Thank you for completing the Survey! Your answers have been registered.")
 

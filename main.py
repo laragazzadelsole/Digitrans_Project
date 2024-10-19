@@ -2,7 +2,13 @@ import streamlit as st
 import json
 from fixed_components import *
 from changing_components import *
+from utils import initialize_session_state
+from components import sidebar, survey_introduction, consent_form, personal_information, instructions, create_question
 import numpy as np
+
+## NICE TO HAVE:
+#   - switch/match case for questions
+#   - set as variable the names like user_full_name, etc...
 
 # Set page configuration
 st.set_page_config(layout="wide")
@@ -10,51 +16,35 @@ st.set_page_config(layout="wide")
 # Load JSON configuration
 config = json.load(open('config.json'))
 
-initialize_session_state()
+# Initializing session state if not already initialized
+if 'initialized' not in st.session_state:
+    initialize_session_state()
 
-
-st.sidebar.title("Survey Index")
-page = st.sidebar.radio("", [
-    "Introduction",
-    "Personal Information", 
-    "Instructions", 
-    "Question 1", 
-    "Question 2", 
-    "Question 3", 
-    "Question 4", 
-    "Question 5", 
-    "Question 6", 
-    "Question 7", 
-    "Question 8", 
-    "Question 9", 
-    "Question 10", 
-    "Question 11", 
-    "Question 12"
-])
+# Define sidebar radio selection buttons
+sidebar_page_selection = sidebar()
 
 # Personal information page
-if page == "Introduction":
-    introduction(config['header'])
+if sidebar_page_selection == "Introduction":
+    survey_introduction(config)
     consent_form()
 
-elif page == "Personal Information":
+elif sidebar_page_selection == "Personal Information":
     personal_information()
 
 # Instructions page
-elif page == "Instructions":
+elif sidebar_page_selection == "Instructions":
     instructions()
 
 # Question 1
-elif page == "Question 1":
+elif sidebar_page_selection == "Question 1":
     q1_config = config['question1']
     answers1, percentage_difference1, num_bins1 = create_question(q1_config, safe_var('data1'))
     save_input_to_session_state('data1', answers1)
-    
-
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
         effect_size_question(q1_config, 1)
+        
 # Question 2
-elif page == "Question 2":
+elif sidebar_page_selection == "Question 2":
     q2_config = config['question2']
     answers2, percentage_difference2, num_bins2 = create_question(q2_config, safe_var('data2'))
     save_input_to_session_state('data2', answers2)
@@ -62,7 +52,7 @@ elif page == "Question 2":
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
         effect_size_question(q2_config, 2)
 # Question 3
-elif page == "Question 3":
+elif sidebar_page_selection == "Question 3":
     q3_config = config['question3']
     answers3, percentage_difference3, num_bins3 = create_question(q3_config, safe_var('data3'))
     save_input_to_session_state('data3', answers3)
@@ -70,7 +60,7 @@ elif page == "Question 3":
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
         effect_size_question(q3_config, 3)
 # Question 4
-elif page == "Question 4":
+elif sidebar_page_selection == "Question 4":
     q4_config = config['question4']
     answers4, answers4_1, percentage_difference_1_4, percentage_difference_2_4, num_bins_1_4, num_bins_2_4 = double_question(q4_config, safe_var('data4'), safe_var('data4_1'))
     save_input_to_session_state('data4', answers4)
@@ -79,7 +69,7 @@ elif page == "Question 4":
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
         effect_size_question(q4_config, 4)
 # Question 5
-elif page == "Question 5":
+elif sidebar_page_selection == "Question 5":
     q5_config = config['question5']
     answers5, answers5_1, percentage_difference_1_5, percentage_difference_2_5, num_bins_1_5, num_bins_2_5 = double_question(q5_config, safe_var('data5'), safe_var('data5_1'))
     save_input_to_session_state('data5', answers5)
@@ -88,7 +78,7 @@ elif page == "Question 5":
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
         effect_size_question(q5_config, 5)
 # Question 6
-elif page == "Question 6":
+elif sidebar_page_selection == "Question 6":
     q6_config = config['question6']
     answers6, answers6_1, percentage_difference_1_6, percentage_difference_2_6, num_bins_1_6, num_bins_2_6 = double_question(q6_config, safe_var('data6'), safe_var('data6_1'))
     save_input_to_session_state('data6', answers6)
@@ -97,7 +87,7 @@ elif page == "Question 6":
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
         effect_size_question(q6_config, 6)
 # Question 7
-elif page == "Question 7":
+elif sidebar_page_selection == "Question 7":
     q7_config = config['question7']
     answers7, percentage_difference7, num_bins7 = create_question(q7_config, safe_var('data7'))
     save_input_to_session_state('data7', answers7)
@@ -106,7 +96,7 @@ elif page == "Question 7":
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
         effect_size_question(q7_config, 7)
 # Question 8
-elif page == "Question 8":
+elif sidebar_page_selection == "Question 8":
     q8_config = config['question8']
     answers8, percentage_difference8, num_bins8 = create_question(q8_config, safe_var('data8'))
     save_input_to_session_state('data8', answers8)
@@ -116,7 +106,7 @@ elif page == "Question 8":
         effect_size_question(q8_config, 8)
 
 # Question 9
-elif page == "Question 9":
+elif sidebar_page_selection == "Question 9":
     q9_config = config['question9']
     answers9, percentage_difference9, num_bins9 = create_question(q9_config, safe_var('data9'))
     save_input_to_session_state('data9', answers9)
@@ -126,13 +116,13 @@ elif page == "Question 9":
     st.write("Saturday and Sunday temperatures in Washington DC for each weekend in 2022. As we might expect, there is a strong correlation between the temperature on a Saturday and on the Sunday, since some parts of the year are hot, and others colder. The correlation here is 0.88.")
 
 # Question 10
-elif page == "Question 10":
+elif sidebar_page_selection == "Question 10":
     q10_config = config['question10']
     answers10, percentage_difference10, num_bins10 = create_question(q10_config, safe_var('data10'))
     save_input_to_session_state('data10', answers10)
 
 # Question 11 - Cost/Benefit
-elif page == "Question 11":
+elif sidebar_page_selection == "Question 11":
     st.subheader("Question 11 - Cost/Benefit Ratio")
     st.write("In simple terms, a cost-benefit ratio is used to compare the costs of an action or project against the benefits it delivers...")
     col1, _ = st.columns(2)
@@ -142,7 +132,7 @@ elif page == "Question 11":
         save_input_to_session_state('cost_benefit_question', cost_benefit_question)
 
 # Question 12 - Risk Aversion
-elif page == "Question 12":
+elif sidebar_page_selection == "Question 12":
     st.subheader("Question 12 - Risk Aversion")
     st.write("Rate your willingness to take risks in general on a 10-point scale, with 1 completely unwilling and 10 completely willing.")
 

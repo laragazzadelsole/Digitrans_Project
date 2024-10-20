@@ -238,11 +238,12 @@ def create_question(config):
     changes_name = config["session_state_changes_name"]
     label_column = config['label_column']
     value_column = config['value_column']
+    plot_key_1 = config['plot_key_1']
 
     if dataframe_name not in st.session_state:
         st.session_state[dataframe_name] = pd.DataFrame(list(zip(x_axis, y_axis)), columns=[label_column, value_column])
     
-    table_and_plot(dataframe_name, changes_name, label_column, value_column)
+    table_and_plot(dataframe_name, changes_name, label_column, value_column, plot_key_1)
 
 def double_question(config):
     st.subheader(config['title_question'])

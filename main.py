@@ -14,7 +14,7 @@ import numpy as np
 st.set_page_config(layout="wide")
 
 # Load JSON configuration
-config = json.load(open('config.json'))
+config = json.load(open('config_pl.json', encoding="utf-8"))
 
 # Initializing session state if not already initialized
 if 'initialized' not in st.session_state:
@@ -24,72 +24,72 @@ if 'initialized' not in st.session_state:
 sidebar_page_selection = sidebar()
 
 # Personal information page
-if sidebar_page_selection == "Introduction":
+if sidebar_page_selection == "Wprowadzenie":
     survey_introduction(config)
     consent_form()
 
-elif sidebar_page_selection == "Personal Information":
+elif sidebar_page_selection == "Dane osobowe":
     personal_information()
 
 # Instructions page
-elif sidebar_page_selection == "Instructions":
+elif sidebar_page_selection == "Instrukcje":
     instructions()
 
 # Question 1
-elif sidebar_page_selection == "Question 1":
+elif sidebar_page_selection == "Pytanie 1":
     q1_config = config['question1']
     create_question(q1_config)
-    if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
+    if safe_var('professional_category') in ['Administracja publiczna', 'Zespół badawczy']:
         effect_size_question(q1_config, 1)
         
 # Question 2
-elif sidebar_page_selection == "Question 2":
+elif sidebar_page_selection == "Pytanie 2":
     q2_config = config['question2']
     create_question(q2_config)
-    if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
+    if safe_var('professional_category') in ['Administracja publiczna', 'Zespół badawczy']:
         effect_size_question(q2_config, 2)
 # Question 3
-elif sidebar_page_selection == "Question 3":
+elif sidebar_page_selection == "Pytanie 3":
     q3_config = config['question3']
     create_question(q3_config)
-    if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
+    if safe_var('professional_category') in ['Administracja publiczna', 'Zespół badawczy']:
         effect_size_question(q3_config, 3)
 # Question 4
-elif sidebar_page_selection == "Question 4":
+elif sidebar_page_selection == "Pytanie 4":
     q4_config = config['question4']
     double_question(q4_config)
-    if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
+    if safe_var('professional_category') in ['Administracja publiczna', 'Zespół badawczy']:
         effect_size_question(q4_config, 4)
 
 # Question 5
-elif sidebar_page_selection == "Question 5":
+elif sidebar_page_selection == "Pytanie 5":
     q5_config = config['question5']
     double_question(q5_config)
-    if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
+    if safe_var('professional_category') in ['Administracja publiczna', 'Zespół badawczy']:
         effect_size_question(q5_config, 5)
 # Question 6
-elif sidebar_page_selection == "Question 6":
+elif sidebar_page_selection == "Pytanie 6":
     q6_config = config['question6']
     double_question(q6_config)
-    if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
+    if safe_var('professional_category') in ['Administracja publiczna', 'Zespół badawczy']:
         effect_size_question(q6_config, 6)
 
 # Question 7
-elif sidebar_page_selection == "Question 7":
+elif sidebar_page_selection == "Pytanie 7":
     q7_config = config['question7']
     create_question(q7_config)
-    if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
+    if safe_var('professional_category') in ['Administracja publiczna', 'Zespół badawczy']:
         effect_size_question(q7_config, 7)
     
 # Question 8
-elif sidebar_page_selection == "Question 8":
+elif sidebar_page_selection == "Pytanie 8":
     q8_config = config['question8']
     create_question(q8_config)
-    if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
+    if safe_var('professional_category') in ['Administracja publiczna', 'Zespół badawczy']:
         effect_size_question(q8_config, 8)
 
 # Question 9
-elif sidebar_page_selection == "Question 9":
+elif sidebar_page_selection == "Pytanie 9":
     q9_config = config['question9']
     create_question(q9_config)
     _, col2, _, _ = st.columns(4)
@@ -98,18 +98,18 @@ elif sidebar_page_selection == "Question 9":
     st.write("Saturday and Sunday temperatures in Washington DC for each weekend in 2022. As we might expect, there is a strong correlation between the temperature on a Saturday and on the Sunday, since some parts of the year are hot, and others colder. The correlation here is 0.88.")
 
 # Question 10
-elif sidebar_page_selection == "Question 10":
+elif sidebar_page_selection == "Pytanie 10":
     q10_config = config['question10']
     create_question(q10_config)
 
 # Question 11 - Cost/Benefit
-elif sidebar_page_selection == "Question 11":
+elif sidebar_page_selection == "Pytanie 11":
     cost_benefit_question()
 
 # Question 12 - Risk Aversion
-elif sidebar_page_selection == "Question 12":
+elif sidebar_page_selection == "Pytanie 12":
     risk_aversion_question()
-    if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:    
+    if safe_var('professional_category') in ['Administracja publiczna', 'Zespół badawczy']:    
         RCT_questions()
 
 # Add some spacing in the sidebar
@@ -200,5 +200,5 @@ if st.session_state.get('submit'):
 
     add_submission(final_df)
    
-    st.sidebar.success(f"Thank you for completing the Survey! Your answers have been registered.")
+    st.sidebar.success(f"Dziękujemy za poświęcony czas i podzielenie się Państwa cennymi spostrzeżeniami na temat insturmentu pilotażowego Digitrans.")
 

@@ -7,39 +7,36 @@ import plotly.graph_objs as go
 # Sidebar constants
 SIDEBAR_TITLE = "Survey Index"
 NUMBER_OF_QUESTIONS = 12
-INFORMATION_PAGES = ["Introduction", "Personal Information", "Instructions"]
-QUESTION_PAGES = [f"Question {question_number}" for question_number in range(1, NUMBER_OF_QUESTIONS + 1)]
+INFORMATION_PAGES = ["Wprowadzenie", "Dane osobowe", "Instrukcje"]
+QUESTION_PAGES = [f"Pytanie {question_number}" for question_number in range(1, NUMBER_OF_QUESTIONS + 1)]
 
 # Consent constants
-CONSENT_TITLE = "By submitting the form below you agree to your data being used for research purposes."
-CONSENT_SENTENCE = "I understand and consent."
-CONSENT_SUCCESS = "You can now start the survey! Please move to questions by clicking on the buttons in the sidebar on the left."
+CONSENT_TITLE = "Przesyłając poniższy formularz, wyrażają Państwo zgodę na wykorzystanie Państwa odpowiedzi do celów badawczych."
+CONSENT_SENTENCE = "Wyrażam zgodę."
+CONSENT_SUCCESS = "Dziękujemy za współpracę i czekamy na Państwa odpowiedzi!"
 
 # Personal information constants
-PERSONAL_INFORMATION_PAGE_TITLE = "Personal Data"
+PERSONAL_INFORMATION_PAGE_TITLE = "Dane osobowe"
 PERSONAL_INFORMATION_CONFIG = {
-    "user_full_name": "Please, enter your full name and surname:",
-    "user_position": "Please, enter your working title:",
-    "user_professional_category": "Please, specify your professional category:",
-    "user_years_of_experience": "Please, insert the years of experience you have working on digitalization:"
+    "user_full_name": "Imię i nazwisko:",
+    "user_position": "Stanowisko:",
+    "user_professional_category": "Grupa:",
+    "user_years_of_experience": "Proszę wpisać liczbę lat doświadczenia,  które posiada Pan/Pani we wspieraniu cyfryzacji sektora prywatnego:"
 }
-PROFESSIONAL_CATEGORY_OPTIONS = ("Government Official/Donor", "Program Implementer/Practitioner", "Researcher")
+PROFESSIONAL_CATEGORY_OPTIONS = ("Administracja publiczna", "Instytucja wdrażająca instrument", "Zespół badawczy")
 
 # Instructions constants
-INSTRUCTIONS_TITLE = "Instructions"
+INSTRUCTIONS_TITLE = "Instrukcje"
 INSTRUCTIONS_SUBTITLE = """
-    This example is designed to help you understand how to effectively respond to this survey. \\
-    For each question, you have a _column with two columns. \\
-    Please allocate probabilities based on the likelihood that you think a specific event will happen under the "Probability" column. \\
-    The plot next to it will show the distribution of your answers. \\
-    As an example, suppose we asked about your beliefs regarding tomorrow's maximum temperature in degrees Celsius in your city or town.
-    """
+    Poniższy przykład ma na celu pomóc Państwu zrozumieć format pytań w tej ankiecie oraz dowiedzieć się, w jaki sposób udzielać odpowiedzi dotyczące wpływu uczestnictwa w programie Digitrans na działalność beneficjentów. \\
+    Dla każdego pytania znajdą Państwo tabelę z interwałami, taką jak ta poniżej. Odpowiadając na pytanie proszę przydzielić prawdopodobieństwo każdej z sytuacji, wpisując liczbę w poszczególnych komórkach, w zależności od prawdopodobieństwa, że Państwa zdaniem wystąpi określone zdarzenie. Proszę pamiętać, że suma prawdopodobieństw przyporządkowana wszystkim styuacjom nie może przekroczyć 100%.\\
+    Na przykład wyobraźmy sobie, że pytamy o Państwa przekonania dotyczące maksymalnej temperatury w stopniach Celsjusza w Państwa mieście lub miejscowości jutro, biorąc pod uwagę, że jest lato, a prognoza pogody przewiduje ulewne deszcze od rana. Poniższa tabela zawiera przykładowe odpowiedzi.
+"""
 INSTRUCTIONS_CAPTION = """
-    In this case, your prediction indicates a 45\% chance of the maximum temperature reaching 26 degrees Celsius, \\
-    20\% chance of it reaching 26 degrees Celsius, and so on.
+    Na przykład wyobraźmy sobie, że pytamy o Państwa przekonania dotyczące maksymalnej temperatury w stopniach Celsjusza w Państwa mieście lub miejscowości jutro, biorąc pod uwagę, że jest lato, a prognoza pogody przewiduje ulewne deszcze od rana. Poniższa tabela zawiera przykładowe odpowiedzi.
     """
-INSTRUCTION_TABLE_TITLE = "Temperature Forecast Tomorrow in Your City"
-INSTRUCTION_TABLE_SUBTITLE = "_Please scroll on the table to see all available options._"
+INSTRUCTION_TABLE_TITLE = "Prognoza temperatury"
+INSTRUCTION_TABLE_SUBTITLE = "_Przewiń tabelę, aby zobaczyć wszystkie dostępne opcje._"
 
 # This config are shared across all plots in the survey
 PLOT_CONFIG = {
@@ -76,12 +73,12 @@ MISSING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')
 TOTAL_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">You have allocated all probabilities!</b>"""
 EXCEEDING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Red')}">You have inserted {{}}% more, please review your percentage distribution.</b>"""
 
-RISK_AVERSION_QUESTION_TITLE = "Question 12 - Risk Aversion"
-RISK_AVERSION_QUESTION_SUBTITLE = "Rate your willingness to take risks in general on a 10-point scale, with 1 completely unwilling and 10 completely willing."
-SLIDER_DESCRIPTION = "Please move the slider to indicate your preference."
+COST_BENEFIT_QUESTION_TITLE = "Pytanie 11 – Stosunek kosztów do korzyści"
+COST_BENEFIT_QUESTION_SUBTITLE = "Stosunek korzyści do kosztów pozwala na porównania kosztów działania lub projektu z korzyściami, jakie przynosi. Na przykład: \n\n- Jeśli program kosztuje 100 000 zł, a wartość pieniężna jego korzyści wynosi 150 000 zł, stosunek korzyści do kosztów wynosiłby 1:1,5. \n- Oznacza to, że na każdą wydaną złotówkę program przynosi półtora złotego korzyści. \n- Wyższy stosunek wskazuje na większą efektywność i opłacalność programu. \n\nBiorąc pod uwagę powyższe wyjaśnienie, chcielibyśmy poznać Państwa opinię: Przy jakim stosunku korzyści do kosztów uznaliby Państwo, że program pilotażowy Digitrans powinien zostać wdrożony na większą skalę? \nProszę wziąć pod uwagę następujące założenia: \n\n- 'Korzyści to efekty zaobserwowane po 2 latach działania programu (obejmujące m.in. dodatkowe przychody i zysk wypracowane przez firmy w Grupie 2 oraz ekwiwalent pieniężny dodatkowych miejsc pracy. \n- 'Koszty obejmują całkowite wydatki poniesione na wdrożenie, funkcjonowanie i utrzymanie programu (w tym koszty administracyjne i ogólne)."
 
-COST_BENEFIT_QUESTION_TITLE = "Question 11 - Cost/Benefit Ratio"
-COST_BENEFIT_QUESTION_SUBTITLE = "In simple terms, a cost-benefit ratio is used to compare the costs of an action or project against the benefits it delivers. For instance, if a program costs €100.000 and the monetized value of its benefits is €150.000, the cost-benefit ratio would be 1:1.5. This means that for every euro spent, the program delivers one and a half euro in benefits. A higher ratio indicates greater efficiency and value for money. This question prompts to consider the efficiency and economic justification for scaling a program, ensuring that the decision aligns with both fiscal responsibility and the desired impact. \nAt what cost-benefit ratio would you consider scaling a program? \nConsider “benefits” that occurred after 2 years of running the program and “costs” as the total expenses incurred to implement, operate, and maintain a program or project (including administration and overhead costs)."
+RISK_AVERSION_QUESTION_TITLE = "Pytanie 12 - Niechęć do ryzyka"
+RISK_AVERSION_QUESTION_SUBTITLE = "Na zakończenie naszej ankiety chcielibyśmy poznać Państwa ogólną skłonność do podejmowania ryzyka. Informacja ta pomoże nam lepiej zrozumieć kontekst Państwa wcześniejszych odpowiedzi. \nJak oceniają Państwo swoją ogólną skłonność do podejmowania ryzyka na skali od 1 do 10? \n\n- 1 oznacza całkowitą niechęć do podejmowania ryzyka. \n- 10 oznacza pełną gotowość do podejmowania ryzyka."
+SLIDER_DESCRIPTION = "Proszę przesunąć suwak, aby wskazać Państwa ocenę."
 
 def sidebar():
     st.sidebar.title(SIDEBAR_TITLE)
@@ -238,11 +235,12 @@ def create_question(config):
     changes_name = config["session_state_changes_name"]
     label_column = config['label_column']
     value_column = config['value_column']
+    plot_key_1 = config['plot_key_1']
 
     if dataframe_name not in st.session_state:
         st.session_state[dataframe_name] = pd.DataFrame(list(zip(x_axis, y_axis)), columns=[label_column, value_column])
     
-    table_and_plot(dataframe_name, changes_name, label_column, value_column)
+    table_and_plot(dataframe_name, changes_name, label_column, value_column, plot_key_1)
 
 def double_question(config):
     st.subheader(config['title_question'])

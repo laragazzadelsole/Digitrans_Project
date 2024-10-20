@@ -94,42 +94,6 @@ def RCT_questions():
     input_RCT_Q6 = st.text_input('Please, write about your experience (max 500 characters).', max_chars=500, value=st.session_state.get('input_RCT_Q6', ''))
     save_input_to_session_state('input_RCT_Q6', input_RCT_Q6)
 
-'''
-def generate_df(updated_bins_question_1_df, updated_bins_question_2_df, updated_bins_question_3_df, updated_bins_question_1_4_df, updated_bins_question_2_4_df, updated_bins_question_1_5_df, updated_bins_question_2_5_df, updated_bins_question_1_6_df, updated_bins_question_2_6_df, updated_bins_question_7_df, updated_bins_question_8_df, updated_bins_question_9_df, updated_bins_question_10_df):
-    """
-    This function generates and returns the concatenated DataFrame (concatenated_df) 
-    from the given updated bins DataFrames.
-    """
-    updated_bins_list = pd.DataFrame[updated_bins_question_1_df, updated_bins_question_2_df, updated_bins_question_3_df, updated_bins_question_1_4_df, updated_bins_question_2_4_df, updated_bins_question_1_5_df, updated_bins_question_2_5_df, updated_bins_question_1_6_df, updated_bins_question_2_6_df, updated_bins_question_7_df, updated_bins_question_8_df, updated_bins_question_9_df, updated_bins_question_10_df]
-
-    def restructure_df(df, i):
-        transposed_df = df.transpose()
-        transposed_df.columns = [f'Q{i + 1}  {col}' for col in list(transposed_df.iloc[0])]
-        transposed_df = transposed_df.iloc[1:]
-        return transposed_df
-
-    # Transpose and restructure each DataFrame in the list
-    transposed_bins_list = []
-    for i, df in enumerate(updated_bins_list):
-        transposed_bins_list.append(restructure_df(df, i))
-    
-    # Concatenate the transposed DataFrames
-    questions_df = pd.concat(transposed_bins_list, axis=1)
-    questions_df.reset_index(drop=True, inplace=True)
-
-    # Retrieve data from session state
-    data = st.session_state['data']
-    session_state_df = pd.DataFrame(data)
-
-    # Splitting data into sections
-    personal_data_df = session_state_df.iloc[:, :4]
-    min_eff_df = session_state_df.iloc[:, 4:]
-
-    # Concatenate the different sections into the final DataFrame
-    df = pd.concat([personal_data_df, questions_df.set_index(personal_data_df.index), min_eff_df.set_index(personal_data_df.index)], axis=1)
-    
-    return df
-'''
 
 def add_submission(df):
       
@@ -149,7 +113,7 @@ def add_submission(df):
     sheet_row_update = sheet.append_rows(df.values.tolist()) #.values.tolist())
     
     #Navigate to the folder in Google Drive. Copy the Folder ID found in the URL. This is everything that comes after “folder/” in the URL.
-    #backup_sheet = client.create(f'Backup_{df.iloc[4]}_{datetime.now()}', folder_id= secrets_to_json()['folder_id']).sheet1
-    #backup_sheet = backup_sheet.append_rows(df.values.tolist()) #(new_bins_df.iloc[:2].values.tolist())
+    backup_sheet = client.create(f'Backup_{df.iloc[0, 0]}_{datetime.now()}', folder_id= secrets_to_json()['folder_id']).sheet1
+    backup_sheet = backup_sheet.append_rows(df.values.tolist()) #(new_bins_df.iloc[:2].values.tolist())
     #backup_sheet.share('', perm_type = 'user', role = 'writer')
 

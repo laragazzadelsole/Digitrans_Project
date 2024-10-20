@@ -3,7 +3,7 @@ import json
 from fixed_components import *
 from changing_components import *
 from utils import initialize_session_state
-from components import sidebar, survey_introduction, consent_form, personal_information, instructions, create_question, double_question
+from components import sidebar, survey_introduction, consent_form, personal_information, instructions, create_question, double_question, risk_aversion_question, cost_benefit_question
 import numpy as np
 
 ## NICE TO HAVE:
@@ -104,24 +104,11 @@ elif sidebar_page_selection == "Question 10":
 
 # Question 11 - Cost/Benefit
 elif sidebar_page_selection == "Question 11":
-    st.subheader("Question 11 - Cost/Benefit Ratio")
-    st.write("In simple terms, a cost-benefit ratio is used to compare the costs of an action or project against the benefits it delivers...")
-    col1, _ = st.columns(2)
-    with col1:
-        cost_benefit_list = [f"1:{round(i, 1)}" for i in np.arange(0.6, 3.1, .2)]
-        cost_benefit_question = st.select_slider("Please move the slider to indicate your preference.", cost_benefit_list, value=st.session_state.get('cost_benefit_question', min(cost_benefit_list)))
-        save_input_to_session_state('cost_benefit_question', cost_benefit_question)
+    cost_benefit_question()
 
 # Question 12 - Risk Aversion
 elif sidebar_page_selection == "Question 12":
-    st.subheader("Question 12 - Risk Aversion")
-    st.write("Rate your willingness to take risks in general on a 10-point scale, with 1 completely unwilling and 10 completely willing.")
-
-    col1, _ = st.columns(2)
-    with col1:
-        risk_aversion_question =st.slider("Please move the slider to indicate your preference.", 1, 10, key="risk_aversion", value=st.session_state.get('risk_aversion_question', 0))
-        save_input_to_session_state('risk_aversion_question', risk_aversion_question)
-
+    risk_aversion_question()
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:    
         RCT_questions()
 

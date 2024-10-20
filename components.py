@@ -76,6 +76,13 @@ MISSING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')
 TOTAL_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">You have allocated all probabilities!</b>"""
 EXCEEDING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Red')}">You have inserted {{}}% more, please review your percentage distribution.</b>"""
 
+RISK_AVERSION_QUESTION_TITLE = "Question 12 - Risk Aversion"
+RISK_AVERSION_QUESTION_SUBTITLE = "Rate your willingness to take risks in general on a 10-point scale, with 1 completely unwilling and 10 completely willing."
+SLIDER_DESCRIPTION = "Please move the slider to indicate your preference."
+
+COST_BENEFIT_QUESTION_TITLE = "Question 11 - Cost/Benefit Ratio"
+COST_BENEFIT_QUESTION_SUBTITLE = "In simple terms, a cost-benefit ratio is used to compare the costs of an action or project against the benefits it delivers. For instance, if a program costs €100.000 and the monetized value of its benefits is €150.000, the cost-benefit ratio would be 1:1.5. This means that for every euro spent, the program delivers one and a half euro in benefits. A higher ratio indicates greater efficiency and value for money. This question prompts to consider the efficiency and economic justification for scaling a program, ensuring that the decision aligns with both fiscal responsibility and the desired impact. \nAt what cost-benefit ratio would you consider scaling a program? \nConsider “benefits” that occurred after 2 years of running the program and “costs” as the total expenses incurred to implement, operate, and maintain a program or project (including administration and overhead costs)."
+
 def sidebar():
     st.sidebar.title(SIDEBAR_TITLE)
     return st.sidebar.radio("", INFORMATION_PAGES + QUESTION_PAGES)
@@ -160,7 +167,7 @@ def instructions():
     values_df = pd.DataFrame({label_column_title: labels_column, value_column_title: values_column})
     
     # Split page into two columns (table, plot)
-    table_column, plot_column = st.columns([0.4, 0.6], gap = "large")
+    table_column, plot_column = st.columns([0.3, 0.7], gap = "large")
        
     with table_column:
         st.data_editor(values_df, use_container_width=True, hide_index=True, disabled=(label_column_title, value_column_title))
@@ -207,7 +214,7 @@ def percentage_difference_warning(percentage_difference):
 
 def table_and_plot(dataframe_name, changes_name, label_column, value_column):
     # Split page into two columns (table, plot)
-    table_column, plot_column = st.columns([0.4, 0.6], gap = "large")
+    table_column, plot_column = st.columns([0.3, 0.7], gap = "large")
 
     with table_column:
         bins_grid = st.data_editor(st.session_state[dataframe_name], hide_index=True, use_container_width=True, disabled=[label_column], \
@@ -264,3 +271,22 @@ def double_question(config):
     st.markdown("- In comparison to GROUP 3 that receives Benchmarking Report.")
 
     table_and_plot(dataframe_name_2, changes_name_2, label_column, value_column)
+
+def cost_benefit_question():
+    st.subheader(COST_BENEFIT_QUESTION_TITLE)
+    st.write(COST_BENEFIT_QUESTION_SUBTITLE)
+    col1, _ = st.columns(2)
+    with col1:
+        cost_benefit_list = [f"1:{round(i, 1)}" for i in np.arange(0.6, 3.1, .2)]
+        cost_benefit_question = st.select_slider(SLIDER_DESCRIPTION, cost_benefit_list, value=st.session_state.get('cost_benefit_question', min(cost_benefit_list)))
+        save_input_to_session_state('cost_benefit_question', cost_benefit_question) 
+
+def risk_aversion_question():
+    st.subheader(RISK_AVERSION_QUESTION_TITLE)
+    st.write(RISK_AVERSION_QUESTION_SUBTITLE)
+
+    col1, _ = st.columns(2)
+    with col1:
+        risk_aversion_question =st.slider(SLIDER_DESCRIPTION, 1, 10, key="risk_aversion", value=st.session_state.get('risk_aversion_question', 0))
+        save_input_to_session_state('risk_aversion_question', risk_aversion_question)
+

@@ -212,7 +212,7 @@ def percentage_difference_warning(percentage_difference):
     else:
         st.markdown(EXCEEDING_PROBABILITY_TEXT.format(abs(percentage_difference)), unsafe_allow_html=True)
 
-def table_and_plot(dataframe_name, changes_name, label_column, value_column):
+def table_and_plot(dataframe_name, changes_name, label_column, value_column, plot_key):
     # Split page into two columns (table, plot)
     table_column, plot_column = st.columns([0.3, 0.7], gap = "large")
 
@@ -224,7 +224,7 @@ def table_and_plot(dataframe_name, changes_name, label_column, value_column):
                     
     with plot_column:
         fig = get_distribution_graph(bins_grid[label_column], bins_grid[value_column], "Expectation Range", "Probability (%)")
-        st.plotly_chart(fig)
+        st.plotly_chart(fig, key=plot_key)
 
 
 def create_question(config):
@@ -257,6 +257,8 @@ def double_question(config):
     changes_name_2 = config["session_state_changes_name_2"]
     label_column = config['label_column']
     value_column = config['value_column']
+    plot_key_1 = config['plot_key_1']
+    plot_key_2 = config['plot_key_2']
 
     if dataframe_name_1 not in st.session_state:
         st.session_state[dataframe_name_1] = pd.DataFrame(list(zip(x_axis, y_axis)), columns=[label_column, value_column])
@@ -266,11 +268,11 @@ def double_question(config):
 
     st.markdown("- In comparison to GROUP 1 that receives Financial Subsidy only.")
 
-    table_and_plot(dataframe_name_1, changes_name_1, label_column, value_column)
+    table_and_plot(dataframe_name_1, changes_name_1, label_column, value_column, plot_key_1)
 
     st.markdown("- In comparison to GROUP 3 that receives Benchmarking Report.")
 
-    table_and_plot(dataframe_name_2, changes_name_2, label_column, value_column)
+    table_and_plot(dataframe_name_2, changes_name_2, label_column, value_column, plot_key_2)
 
 def cost_benefit_question():
     st.subheader(COST_BENEFIT_QUESTION_TITLE)

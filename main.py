@@ -3,7 +3,7 @@ import json
 from fixed_components import *
 from changing_components import *
 from utils import initialize_session_state
-from components import sidebar, survey_introduction, consent_form, personal_information, instructions, create_question
+from components import sidebar, survey_introduction, consent_form, personal_information, instructions, create_question, double_question
 import numpy as np
 
 ## NICE TO HAVE:
@@ -38,78 +38,60 @@ elif sidebar_page_selection == "Instructions":
 # Question 1
 elif sidebar_page_selection == "Question 1":
     q1_config = config['question1']
-    answers1, percentage_difference1, num_bins1 = create_question(q1_config, safe_var('data1'))
-    save_input_to_session_state('data1', answers1)
+    create_question(q1_config)
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
         effect_size_question(q1_config, 1)
         
 # Question 2
 elif sidebar_page_selection == "Question 2":
     q2_config = config['question2']
-    answers2, percentage_difference2, num_bins2 = create_question(q2_config, safe_var('data2'))
-    save_input_to_session_state('data2', answers2)
-
+    create_question(q2_config)
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
         effect_size_question(q2_config, 2)
 # Question 3
 elif sidebar_page_selection == "Question 3":
     q3_config = config['question3']
-    answers3, percentage_difference3, num_bins3 = create_question(q3_config, safe_var('data3'))
-    save_input_to_session_state('data3', answers3)
-
+    create_question(q3_config)
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
         effect_size_question(q3_config, 3)
 # Question 4
 elif sidebar_page_selection == "Question 4":
     q4_config = config['question4']
-    answers4, answers4_1, percentage_difference_1_4, percentage_difference_2_4, num_bins_1_4, num_bins_2_4 = double_question(q4_config, safe_var('data4'), safe_var('data4_1'))
-    save_input_to_session_state('data4', answers4)
-    save_input_to_session_state('data4_1', answers4_1)
-
+    double_question(q4_config)
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
         effect_size_question(q4_config, 4)
+
 # Question 5
 elif sidebar_page_selection == "Question 5":
     q5_config = config['question5']
-    answers5, answers5_1, percentage_difference_1_5, percentage_difference_2_5, num_bins_1_5, num_bins_2_5 = double_question(q5_config, safe_var('data5'), safe_var('data5_1'))
-    save_input_to_session_state('data5', answers5)
-    save_input_to_session_state('data5_1', answers5_1)
-
+    double_question(q5_config)
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
         effect_size_question(q5_config, 5)
 # Question 6
 elif sidebar_page_selection == "Question 6":
     q6_config = config['question6']
-    answers6, answers6_1, percentage_difference_1_6, percentage_difference_2_6, num_bins_1_6, num_bins_2_6 = double_question(q6_config, safe_var('data6'), safe_var('data6_1'))
-    save_input_to_session_state('data6', answers6)
-    save_input_to_session_state('data6_1', answers6_1)
-
+    double_question(q6_config)
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
         effect_size_question(q6_config, 6)
+
 # Question 7
 elif sidebar_page_selection == "Question 7":
     q7_config = config['question7']
-    answers7, percentage_difference7, num_bins7 = create_question(q7_config, safe_var('data7'))
-    save_input_to_session_state('data7', answers7)
-    
-
+    create_question(q7_config)
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
         effect_size_question(q7_config, 7)
+    
 # Question 8
 elif sidebar_page_selection == "Question 8":
     q8_config = config['question8']
-    answers8, percentage_difference8, num_bins8 = create_question(q8_config, safe_var('data8'))
-    save_input_to_session_state('data8', answers8)
-    
-
+    create_question(q8_config)
     if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
         effect_size_question(q8_config, 8)
 
 # Question 9
 elif sidebar_page_selection == "Question 9":
     q9_config = config['question9']
-    answers9, percentage_difference9, num_bins9 = create_question(q9_config, safe_var('data9'))
-    save_input_to_session_state('data9', answers9)
+    create_question(q9_config)
     _, col2, _, _ = st.columns(4)
     with col2:
         st.image("SatSunGraph.png", width=700)
@@ -118,8 +100,7 @@ elif sidebar_page_selection == "Question 9":
 # Question 10
 elif sidebar_page_selection == "Question 10":
     q10_config = config['question10']
-    answers10, percentage_difference10, num_bins10 = create_question(q10_config, safe_var('data10'))
-    save_input_to_session_state('data10', answers10)
+    create_question(q10_config)
 
 # Question 11 - Cost/Benefit
 elif sidebar_page_selection == "Question 11":
@@ -156,19 +137,19 @@ st.sidebar.button('Submit', on_click=click_submit)
 if st.session_state.get('submit'):
 
     table_answers = {
-    "answers1": st.session_state.get('data1'),
-    "answers2": st.session_state.get('data2'),
-    "answers3": st.session_state.get('data3'),
-    "answers4": st.session_state.get('data4'),
-    "answers4_1": st.session_state.get('data4_1'),
-    "answers5": st.session_state.get('data5'),
-    "answers5_1": st.session_state.get('data5_1'),
-    "answers6": st.session_state.get('data6'),
-    "answers6_1": st.session_state.get('data6_1'),
-    "answers7": st.session_state.get('data7'),
-    "answers8": st.session_state.get('data8'),
-    "answers9": st.session_state.get('data9'),
-    "answers10": st.session_state.get('data10')
+    "answers1": st.session_state.get(config['question1']["session_state_dataframe_name"]),
+    "answers2": st.session_state.get(config['question2']["session_state_dataframe_name"]),
+    "answers3": st.session_state.get(config['question3']["session_state_dataframe_name"]),
+    "answers4": st.session_state.get(config['question4']["session_state_dataframe_name_1"]),
+    "answers4_1": st.session_state.get(config['question4']["session_state_dataframe_name_2"]),
+    "answers5": st.session_state.get(config['question5']["session_state_dataframe_name_1"]),
+    "answers5_1": st.session_state.get(config['question5']["session_state_dataframe_name_2"]),
+    "answers6": st.session_state.get(config['question6']["session_state_dataframe_name_1"]),
+    "answers6_1": st.session_state.get(config['question6']["session_state_dataframe_name_2"]),
+    "answers7": st.session_state.get(config['question7']["session_state_dataframe_name"]),
+    "answers8": st.session_state.get(config['question8']["session_state_dataframe_name"]),
+    "answers9": st.session_state.get(config['question9']["session_state_dataframe_name"]),
+    "answers10": st.session_state.get(config['question10']["session_state_dataframe_name"])
     }
 
     def get_answer_df(question_number, colname):

@@ -18,3 +18,8 @@ def safe_var(key):
     if key in st.session_state:
         return st.session_state[key]
     return None
+
+def update_dataframe_session_state(changes_name, dataframe_name):
+    for idx, change in st.session_state[changes_name]["edited_rows"].items():
+        for label, value in change.items():
+            st.session_state[dataframe_name].loc[idx, label] = value

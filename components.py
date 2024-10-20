@@ -1,5 +1,5 @@
 import streamlit as st
-from utils import save_input_to_session_state, safe_var
+from utils import save_input_to_session_state, safe_var, update_dataframe_session_state
 import pandas as pd
 import numpy as np
 import plotly.graph_objs as go
@@ -71,6 +71,11 @@ PLOT_MARKER_LINE_COLOR = "rgba(0, 128, 0, 1.0)"  # Dark green outline for contra
 PLOT_MARKER_LINE_WIDTH = 2  # Width of the bar outline
 PLOT_TEXT_POSITION = "auto"
 
+PROBABILITY_TEXT_STYLE = """font-family:sans-serif; color:{}; font-size: 20px;"""
+MISSING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">You still have to allocate {{}}% probability.</b>"""
+TOTAL_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">You have allocated all probabilities!</b>"""
+EXCEEDING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Red')}">You have inserted {{}}% more, please review your percentage distribution.</b>"""
+
 def sidebar():
     st.sidebar.title(SIDEBAR_TITLE)
     return st.sidebar.radio("", INFORMATION_PAGES + QUESTION_PAGES)
@@ -113,6 +118,31 @@ def personal_information():
         save_input_to_session_state("professional_category", profession)
         save_input_to_session_state("years_of_experience", experience) 
 
+def get_distribution_graph(labels_column, values_column, label_column_title, value_column_title):
+    figure = go.Figure()
+
+    figure.add_trace(go.Bar(
+        x=labels_column, 
+        y=values_column, 
+        marker_color= PLOT_MARKER_COLOR,
+        marker_line_color= PLOT_MARKER_LINE_COLOR,
+        marker_line_width= PLOT_MARKER_LINE_WIDTH,
+        text=[f"{p}" for p in values_column],  # Adding percentage labels to bars
+        textposition= PLOT_TEXT_POSITION,
+        name=value_column_title
+    ))
+
+    figure.update_layout(
+        title= PLOT_CONFIG["title"],
+        xaxis_title=label_column_title,
+        yaxis_title=value_column_title,
+        xaxis=PLOT_CONFIG["x_axis"],
+        yaxis=PLOT_CONFIG["y_axis"],
+        font=dict(color="white"),  # White font color for readability
+    )
+    
+    return figure
+
 def instructions():
     st.subheader(INSTRUCTIONS_TITLE)
     st.write(INSTRUCTIONS_SUBTITLE)
@@ -136,27 +166,7 @@ def instructions():
         st.data_editor(values_df, use_container_width=True, hide_index=True, disabled=(label_column_title, value_column_title))
 
     with plot_column:
-        fig = go.Figure()
-        fig.add_trace(go.Bar(
-            x=labels_column, 
-            y=values_df[value_column_title], 
-            marker_color= PLOT_MARKER_COLOR,
-            marker_line_color= PLOT_MARKER_LINE_COLOR,
-            marker_line_width= PLOT_MARKER_LINE_WIDTH,
-            text=[f"{p}" for p in values_df[value_column_title]],  # Adding percentage labels to bars
-            textposition= PLOT_TEXT_POSITION,
-            name=value_column_title
-        ))
-
-
-        fig.update_layout(
-            title= PLOT_CONFIG["title"],
-            xaxis_title=label_column_title,
-            yaxis_title=value_column_title,
-            xaxis=PLOT_CONFIG["x_axis"],
-            yaxis=PLOT_CONFIG["y_axis"],
-            font=dict(color="white"),  # White font color for readability
-        )
+        fig = get_distribution_graph(labels_column, values_df[value_column_title], label_column_title, value_column_title)
         st.plotly_chart(fig)
 
     st.write(INSTRUCTIONS_CAPTION)
@@ -186,60 +196,71 @@ def generate_question_x_axis(config):
     
     return x_axis
 
+def percentage_difference_warning(percentage_difference):
+    # Show text (and warnings) based on missing/exceeding probability
+    if percentage_difference > 0:
+        st.markdown(MISSING_PROBABILITY_TEXT.format(percentage_difference), unsafe_allow_html=True)
+    elif percentage_difference == 0:
+        st.markdown(TOTAL_PROBABILITY_TEXT, unsafe_allow_html=True)
+    else:
+        st.markdown(EXCEEDING_PROBABILITY_TEXT.format(abs(percentage_difference)), unsafe_allow_html=True)
 
-def create_question(config, existing_data=None):
+def table_and_plot(dataframe_name, changes_name, label_column, value_column):
+    # Split page into two columns (table, plot)
+    table_column, plot_column = st.columns([0.4, 0.6], gap = "large")
+
+    with table_column:
+        bins_grid = st.data_editor(st.session_state[dataframe_name], hide_index=True, use_container_width=True, disabled=[label_column], \
+                                   key=changes_name, on_change=update_dataframe_session_state, args=(changes_name, dataframe_name))
+        percentage_difference = 100 - sum(bins_grid[value_column])
+        percentage_difference_warning(percentage_difference)
+                    
+    with plot_column:
+        fig = get_distribution_graph(bins_grid[label_column], bins_grid[value_column], "Expectation Range", "Probability (%)")
+        st.plotly_chart(fig)
+
+
+def create_question(config):
     st.subheader(config['title_question'])
     st.write(config['subtitle_question'])
 
     x_axis = generate_question_x_axis(config)
     y_axis = np.zeros(len(x_axis))
 
-    data = pd.DataFrame(list(zip(x_axis, y_axis)), columns=[config['label_column'], config['value_column']]) if existing_data is None else existing_data
-   
-    # Split page into two columns (table, plot)
-    table_column, plot_column = st.columns([0.4, 0.6], gap = "large")
+    dataframe_name = config["session_state_dataframe_name"]
+    changes_name = config["session_state_changes_name"]
+    label_column = config['label_column']
+    value_column = config['value_column']
 
-    with table_column:
-        bins_grid = st.data_editor(data, key= config['data_editor_1'], hide_index=True, use_container_width=True, disabled=[config['label_column']])
-        percentage_difference = 100 - sum(bins_grid[config['value_column']])
+    if dataframe_name not in st.session_state:
+        st.session_state[dataframe_name] = pd.DataFrame(list(zip(x_axis, y_axis)), columns=[label_column, value_column])
+    
+    table_and_plot(dataframe_name, changes_name, label_column, value_column)
 
-        # Display the counter
-        if percentage_difference > 0:
-            missing_prob = f'<b style="font-family:sans-serif; color:Green; font-size: 20px; ">You still have to allocate {percentage_difference}% probability.</b>'
-            st.markdown(missing_prob, unsafe_allow_html=True)
-            
-        elif percentage_difference == 0:
-            total_prob = f'<b style="font-family:sans-serif; color:Green; font-size: 20px; ">You have allocated all probabilities!</b>'
-            st.markdown(total_prob, unsafe_allow_html=True)
-        else:
-            exceeding_prob = f'<b style="font-family:sans-serif; color:Red; font-size: 20px; ">You have inserted {abs(percentage_difference)}% more, please review your percentage distribution.</b>'
-            st.markdown(exceeding_prob, unsafe_allow_html=True)
-                    
-    with plot_column:
-        # Extract the updated values from the second column
-        updated_values = bins_grid[config['value_column']]
+def double_question(config):
+    st.subheader(config['title_question'])
+    st.write(config['subtitle_question'])
 
-        # Plot the updated values as a bar plot
-        fig = go.Figure()
-        fig.add_trace(go.Bar(
-            x=bins_grid[config['label_column']], 
-            y=updated_values, 
-            marker_color= PLOT_MARKER_COLOR,
-            marker_line_color= PLOT_MARKER_LINE_COLOR,
-            marker_line_width= PLOT_MARKER_LINE_WIDTH,
-            text=[f"{p}" for p in bins_grid[config['value_column']]],  # Adding percentage labels to bars
-            textposition= PLOT_TEXT_POSITION,
-            name='Probability'
-        ))
+    x_axis = generate_question_x_axis(config)
+    y_axis = np.zeros(len(x_axis))
 
-        fig.update_layout(
-            title=PLOT_CONFIG["title"],
-            xaxis_title="Expectation Range",
-            yaxis_title="Probability (%)",
-                xaxis=PLOT_CONFIG["x_axis"],
-            yaxis=PLOT_CONFIG["y_axis"],
-            font=dict(color='white'),  # White font color for readability
-        )
-        st.plotly_chart(fig)
+    dataframe_name_1 = config["session_state_dataframe_name_1"]
+    changes_name_1 = config["session_state_changes_name_1"]
+    dataframe_name_2 = config["session_state_dataframe_name_2"]
+    changes_name_2 = config["session_state_changes_name_2"]
+    label_column = config['label_column']
+    value_column = config['value_column']
 
-    return bins_grid, percentage_difference, len(bins_grid)
+    if dataframe_name_1 not in st.session_state:
+        st.session_state[dataframe_name_1] = pd.DataFrame(list(zip(x_axis, y_axis)), columns=[label_column, value_column])
+
+    if dataframe_name_2 not in st.session_state:
+        st.session_state[dataframe_name_2] = pd.DataFrame(list(zip(x_axis, y_axis)), columns=[label_column, value_column])
+
+    st.markdown("- In comparison to GROUP 1 that receives Financial Subsidy only.")
+
+    table_and_plot(dataframe_name_1, changes_name_1, label_column, value_column)
+
+    st.markdown("- In comparison to GROUP 3 that receives Benchmarking Report.")
+
+    table_and_plot(dataframe_name_2, changes_name_2, label_column, value_column)

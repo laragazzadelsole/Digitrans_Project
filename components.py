@@ -5,7 +5,7 @@ import numpy as np
 import plotly.graph_objs as go
 
 # Sidebar constants
-SIDEBAR_TITLE = "Survey Index"
+SIDEBAR_TITLE = "Spis Treści"
 NUMBER_OF_QUESTIONS = 12
 INFORMATION_PAGES = ["Wprowadzenie", "Dane osobowe", "Instrukcje"]
 QUESTION_PAGES = [f"Pytanie {question_number}" for question_number in range(1, NUMBER_OF_QUESTIONS + 1)]
@@ -41,7 +41,7 @@ INSTRUCTION_TABLE_SUBTITLE = "_Przewiń tabelę, aby zobaczyć wszystkie dostęp
 # This config are shared across all plots in the survey
 PLOT_CONFIG = {
     "title": {
-                "text": "Probability distribution",
+                "text": "Rozkład prawdopodobieństwa",
                 "y":0.9,
                 "x":0.5,
                 "xanchor": "center",
@@ -69,9 +69,9 @@ PLOT_MARKER_LINE_WIDTH = 2  # Width of the bar outline
 PLOT_TEXT_POSITION = "auto"
 
 PROBABILITY_TEXT_STYLE = """font-family:sans-serif; color:{}; font-size: 20px;"""
-MISSING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">You still have to allocate {{}}% probability.</b>"""
-TOTAL_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">You have allocated all probabilities!</b>"""
-EXCEEDING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Red')}">You have inserted {{}}% more, please review your percentage distribution.</b>"""
+MISSING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">Do przydzielenia nadal pozostaje {{}}% prawdopodobieństwa.</b>"""
+TOTAL_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">Przydzielony został całkowity zakres prawdopodobieństwa.</b>"""
+EXCEEDING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Red')}">Wprowadzone zostało {{}}% prawdopodobieństwa ponad 100%, proszę sprawdzić Państwa odpowiedzi!</b>"""
 
 COST_BENEFIT_QUESTION_TITLE = "Pytanie 11 – Stosunek kosztów do korzyści"
 COST_BENEFIT_QUESTION_SUBTITLE = "Stosunek korzyści do kosztów pozwala na porównania kosztów działania lub projektu z korzyściami, jakie przynosi. Na przykład: \n\n- Jeśli program kosztuje 100 000 zł, a wartość pieniężna jego korzyści wynosi 150 000 zł, stosunek korzyści do kosztów wynosiłby 1:1,5. \n- Oznacza to, że na każdą wydaną złotówkę program przynosi półtora złotego korzyści. \n- Wyższy stosunek wskazuje na większą efektywność i opłacalność programu. \n\nBiorąc pod uwagę powyższe wyjaśnienie, chcielibyśmy poznać Państwa opinię: Przy jakim stosunku korzyści do kosztów uznaliby Państwo, że program pilotażowy Digitrans powinien zostać wdrożony na większą skalę? \nProszę wziąć pod uwagę następujące założenia: \n\n- 'Korzyści to efekty zaobserwowane po 2 latach działania programu (obejmujące m.in. dodatkowe przychody i zysk wypracowane przez firmy w Grupie 2 oraz ekwiwalent pieniężny dodatkowych miejsc pracy. \n- 'Koszty obejmują całkowite wydatki poniesione na wdrożenie, funkcjonowanie i utrzymanie programu (w tym koszty administracyjne i ogólne)."
@@ -154,8 +154,8 @@ def instructions():
     st.subheader(INSTRUCTION_TABLE_TITLE)
     st.write(INSTRUCTION_TABLE_SUBTITLE)
 
-    label_column_title = "Temperature"
-    value_column_title = "Probability (%)"
+    label_column_title = "Temperatury"
+    value_column_title = "Prawdopodobieństwo (%)"
 
     # Generate sample labels and values
     labels_column = ["< 15"] + [str(x) for x in range(16, 25)] + ["> 25"]
@@ -184,7 +184,7 @@ def generate_question_x_axis(config):
     interval = config['step_size_graph']
 
     # Create a list of ranges based on the provided values
-    x_axis = [minor_value] + [f"{round(i, 1)}% to {round((i + interval - 0.01), 2)}%" for i in np.arange(min_value, max_value, interval)] + [major_value]
+    x_axis = [minor_value] + [f"{round(i, 1)}% do {round((i + interval - 0.01), 2)}%" for i in np.arange(min_value, max_value, interval)] + [major_value]
 
     # TODO find a way to remove it
     if config['min_value_graph'] == -1:
@@ -220,7 +220,7 @@ def table_and_plot(dataframe_name, changes_name, label_column, value_column, plo
         percentage_difference_warning(percentage_difference)
                     
     with plot_column:
-        fig = get_distribution_graph(bins_grid[label_column], bins_grid[value_column], "Expectation Range", "Probability (%)")
+        fig = get_distribution_graph(bins_grid[label_column], bins_grid[value_column], "Oczekiwane prawdopodobieństwa", "Prawdopodobieństwo (%)")
         st.plotly_chart(fig, key=plot_key)
 
 

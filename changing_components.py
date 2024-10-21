@@ -106,7 +106,7 @@ def add_submission(df):
     creds = ServiceAccountCredentials.from_json_keyfile_dict(secrets_to_json(), scope)
     client = gspread.authorize(creds)
  
-    sheet = client.open("Digitrans_Prior_Survey_Answers").sheet1
+    sheet = client.open("Digitrans_Survey_Answers_Polish").sheet1
 
     column_names_list = df.columns.tolist()
     #column_names = sheet.append_row(column_names_list)

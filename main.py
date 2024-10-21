@@ -116,7 +116,7 @@ elif sidebar_page_selection == "Pytanie 12":
 for _ in range(4):
     st.sidebar.write("")
 
-st.sidebar.write("Please, go through all the questions to make sure you completed all of them before clicking Submit.")
+st.sidebar.write("Przed kliknięciem przycisku „Submit” proszę przejrzeć wszystkie pytania, aby upewnić się, że wszystkie odpowiedzi zostały udzielone.")
 
 st.sidebar.button('Submit', on_click=click_submit)
 
@@ -140,22 +140,22 @@ if st.session_state.get('submit'):
     }
 
     def get_answer_df(question_number, colname):
-        question_df = pd.DataFrame([list(table_answers[f'answers{question_number}'][colname]), list(table_answers[f'answers{question_number}']['Probability (%)'])])
+        question_df = pd.DataFrame([list(table_answers[f'answers{question_number}'][colname]), list(table_answers[f'answers{question_number}']['Prawdopodobieństwo (%)'])])
         return question_df.rename(columns=question_df.iloc[0], copy=False).iloc[1:].reset_index(drop=True)
 
-    df1 = get_answer_df('1', 'Percentage Points Change')
-    df2 = get_answer_df('2', 'Percentage Points Change')
-    df3 = get_answer_df('3', 'Percentage Change')
-    df4 = get_answer_df('4', 'Percentage Change')
-    df4_1 = get_answer_df('4_1', 'Percentage Change')
-    df5 = get_answer_df('5', 'Percentage Change')
-    df5_1 = get_answer_df('5_1', 'Percentage Change')
-    df6 = get_answer_df('6', 'Percentage Change')
-    df6_1 = get_answer_df('6_1', 'Percentage Change')
-    df7 = get_answer_df('7', 'Percentage Change')
-    df8 = get_answer_df('8', 'Percentage Change')
-    df9 = get_answer_df('9', 'Correlation')
-    df10 = get_answer_df('10', 'Correlation')
+    df1 = get_answer_df('1', 'Punkty procentowe')
+    df2 = get_answer_df('2', 'Punkty procentowe')
+    df3 = get_answer_df('3', 'Procenty')
+    df4 = get_answer_df('4', 'Procenty')
+    df4_1 = get_answer_df('4_1', 'Procenty')
+    df5 = get_answer_df('5', 'Procenty')
+    df5_1 = get_answer_df('5_1', 'Procenty')
+    df6 = get_answer_df('6', 'Procenty')
+    df6_1 = get_answer_df('6_1', 'Procenty')
+    df7 = get_answer_df('7', 'Procenty')
+    df8 = get_answer_df('8', 'Procenty')
+    df9 = get_answer_df('9', 'Korelacja')
+    df10 = get_answer_df('10', 'Korelacja')
 
 
     df_list = [df1, df2, df3, df4, df4_1, df5, df5_1, df6, df6_1, df7, df8, df9, df10]

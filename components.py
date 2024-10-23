@@ -154,8 +154,8 @@ def instructions():
     st.subheader(INSTRUCTION_TABLE_TITLE)
     st.write(INSTRUCTION_TABLE_SUBTITLE)
 
-    label_column_title = "Temperatury"
-    value_column_title = "Prawdopodobieństwo (%)"
+    label_column_title = "Temperatura"
+    value_column_title = "Prawdopodobieństwo wystąpienia (%)"
 
     # Generate sample labels and values
     labels_column = ["< 15"] + [str(x) for x in range(16, 25)] + ["> 25"]
@@ -189,14 +189,14 @@ def generate_question_x_axis(config):
     # TODO find a way to remove it
     if config['min_value_graph'] == -1:
         x_axis.insert(6, "0%")
-        x_axis[1] = '-0.99% to -0.81%'
-        x_axis[7] = '0.01% to 0.19%'
+        x_axis[1] = '-0.99% do -0.81%'
+        x_axis[7] = '0.01% do 0.19%'
     elif config['min_value_graph'] == -30:
         x_axis.insert(7, "0%")
-        x_axis[8] = '0.01% to 4.99%'
+        x_axis[8] = '0.01% do 4.99%'
     elif config['min_value_graph'] == -15:
         x_axis.insert(4, "0%")
-        x_axis[5] = '0.01% to 4.99%'
+        x_axis[5] = '0.01% do 4.99%'
     
     return x_axis
 
@@ -220,7 +220,7 @@ def table_and_plot(dataframe_name, changes_name, label_column, value_column, plo
         percentage_difference_warning(percentage_difference)
                     
     with plot_column:
-        fig = get_distribution_graph(bins_grid[label_column], bins_grid[value_column], "Oczekiwane prawdopodobieństwa", "Prawdopodobieństwo (%)")
+        fig = get_distribution_graph(bins_grid[label_column], bins_grid[value_column], "Oczekiwana zmiana", "Prawdopodobieństwo (%)")
         st.plotly_chart(fig, key=plot_key)
 
 
@@ -264,11 +264,11 @@ def double_question(config):
     if dataframe_name_2 not in st.session_state:
         st.session_state[dataframe_name_2] = pd.DataFrame(list(zip(x_axis, y_axis)), columns=[label_column, value_column])
 
-    st.markdown("- In comparison to GROUP 1 that receives Financial Subsidy only.")
+    st.markdown("- W porównaniu z GRUPĄ 1, która otrzymuje jedynie Voucher Finansowy.")
 
     table_and_plot(dataframe_name_1, changes_name_1, label_column, value_column, plot_key_1)
 
-    st.markdown("- In comparison to GROUP 3 that receives Benchmarking Report.")
+    st.markdown("- W porównaniu z GRUPĄ 3, która otrzymuje jedynie Raport Benchmarkingowy.")
 
     table_and_plot(dataframe_name_2, changes_name_2, label_column, value_column, plot_key_2)
 

@@ -78,15 +78,13 @@ elif sidebar_page_selection == "Pytanie 6":
 elif sidebar_page_selection == "Pytanie 7":
     q7_config = config['question7']
     create_question(q7_config)
-    if safe_var('professional_category') in ['Administracja publiczna', 'Zespół badawczy']:
-        effect_size_question(q7_config, 7)
+
     
 # Question 8
 elif sidebar_page_selection == "Pytanie 8":
     q8_config = config['question8']
     create_question(q8_config)
-    if safe_var('professional_category') in ['Administracja publiczna', 'Zespół badawczy']:
-        effect_size_question(q8_config, 8)
+
 
 # Question 9
 elif sidebar_page_selection == "Pytanie 9":
@@ -95,7 +93,7 @@ elif sidebar_page_selection == "Pytanie 9":
     _, col2, _, _ = st.columns(4)
     with col2:
         st.image("SatSunGraph.png", width=700)
-    st.write("Saturday and Sunday temperatures in Washington DC for each weekend in 2022. As we might expect, there is a strong correlation between the temperature on a Saturday and on the Sunday, since some parts of the year are hot, and others colder. The correlation here is 0.88.")
+    st.write("Temperatury w sobotę i niedzielę w Waszyngtonie w każdy weekend w 2022 r. Jak można się spodziewać, istnieje silna korelacja między temperaturą w sobotę i niedzielę, ponieważ niektóre części roku są gorące, a inne zimniejsze. Korelacja wynosi tutaj 0,88.")
 
 # Question 10
 elif sidebar_page_selection == "Pytanie 10":
@@ -180,10 +178,6 @@ if st.session_state.get('submit'):
         "min_eff_size5_2": st.session_state.get('effect_size_question_5_answer_2'),
         "min_eff_size6_1": st.session_state.get('effect_size_question_6_answer_1'),
         "min_eff_size6_2": st.session_state.get('effect_size_question_6_answer_2'),
-        "min_eff_size7_1": st.session_state.get('effect_size_question_7_answer_1'),
-        "min_eff_size7_2": st.session_state.get('effect_size_question_7_answer_2'),
-        "min_eff_size8_1": st.session_state.get('effect_size_question_8_answer_1'),
-        "min_eff_size8_2": st.session_state.get('effect_size_question_8_answer_2'),
         "cost_benefit_answer": st.session_state.get('cost_benefit_question'),
         "risk_aversion_answer": st.session_state.get('risk_aversion_question'),
         "RCT_Q1_answer": st.session_state.get('RCT_Q1'),

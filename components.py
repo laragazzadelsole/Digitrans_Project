@@ -7,41 +7,41 @@ import plotly.graph_objs as go
 # Sidebar constants
 SIDEBAR_TITLE = "Spis Treści"
 NUMBER_OF_QUESTIONS = 12
-INFORMATION_PAGES = ["Wprowadzenie", "Dane osobowe", "Instrukcje"]
-QUESTION_PAGES = [f"Pytanie {question_number}" for question_number in range(1, NUMBER_OF_QUESTIONS + 1)]
+INFORMATION_PAGES = ["Въведение", "Лични данни", "Инструкции"]
+QUESTION_PAGES = [f"Въпрос  {question_number}" for question_number in range(1, NUMBER_OF_QUESTIONS + 1)]
 
 # Consent constants
-CONSENT_TITLE = "Przesyłając poniższy formularz, wyrażają Państwo zgodę na wykorzystanie Państwa odpowiedzi do celów badawczych."
-CONSENT_SENTENCE = "Wyrażam zgodę."
-CONSENT_SUCCESS = "Dziękujemy za współpracę i czekamy na Państwa odpowiedzi!"
+CONSENT_TITLE = "С изпращането на следния формуляр Вие се съгласявате Вашите отговори да бъдат използвани за изследователски цели."
+CONSENT_SENTENCE = "Съгласен съм"
+CONSENT_SUCCESS = "Благодарим Ви за сътрудничеството и очакваме Вашите отговори!"
 
 # Personal information constants
-PERSONAL_INFORMATION_PAGE_TITLE = "Dane osobowe"
+PERSONAL_INFORMATION_PAGE_TITLE = "Лични данни"
 PERSONAL_INFORMATION_CONFIG = {
-    "user_full_name": "Imię i nazwisko:",
-    "user_position": "Stanowisko:",
-    "user_professional_category": "Grupa:",
-    "user_years_of_experience": "Proszę wpisać liczbę lat doświadczenia,  które posiada Pan/Pani we wspieraniu cyfryzacji sektora prywatnego:"
+    "user_full_name": "Име и фамилия:",
+    "user_position": "Длъжност:",
+    "user_professional_category": "Група:",
+    "user_years_of_experience": "Моля, въведете броя години опит, който имате в подкрепата на цифровизацията на частния сектор:"
 }
-PROFESSIONAL_CATEGORY_OPTIONS = ("Administracja publiczna", "Instytucja wdrażająca instrument", "Zespół badawczy")
+PROFESSIONAL_CATEGORY_OPTIONS = ("Публична администрация", "Изпълняваща инструмента институция/ практик", "Изследователски екип")
 
 # Instructions constants
-INSTRUCTIONS_TITLE = "Instrukcje"
+INSTRUCTIONS_TITLE = "Инструкции"
 INSTRUCTIONS_SUBTITLE = """
-    Poniższy przykład ma na celu pomóc Państwu zrozumieć format pytań w tej ankiecie oraz dowiedzieć się, w jaki sposób udzielać odpowiedzi dotyczące wpływu uczestnictwa w programie Digitrans na działalność beneficjentów. \\
-    Dla każdego pytania znajdą Państwo tabelę z interwałami, taką jak ta poniżej. Odpowiadając na pytanie proszę przydzielić prawdopodobieństwo każdej z sytuacji, wpisując liczbę w poszczególnych komórkach, w zależności od prawdopodobieństwa, że Państwa zdaniem wystąpi określone zdarzenie. Proszę pamiętać, że suma prawdopodobieństw przyporządkowana wszystkim styuacjom nie może przekroczyć 100%.\\
-    Na przykład wyobraźmy sobie, że pytamy o Państwa przekonania dotyczące maksymalnej temperatury w stopniach Celsjusza w Państwa mieście lub miejscowości jutro, biorąc pod uwagę, że jest lato, a prognoza pogody przewiduje ulewne deszcze od rana. Poniższa tabela zawiera przykładowe odpowiedzi.
-"""
+    Следният пример има за цел да Ви помогне да разберете формата на въпросите в тази анкета и да научите как да давате отговори относно въздействието на участието в програмата Digitrans върху дейността на бенефициентите. 
+    \n\nЗа всеки въпрос ще намерите таблица с интервали като тази по-долу. Отговаряйки на въпроса, моля, разпределете вероятността за всяка от ситуациите, като въведете число в съответните клетки, в зависимост от вероятността, която смятате, че ще настъпи определено събитие. Моля, имайте предвид, че сумата от вероятностите, разпределени за всички ситуации, не може да надвишава 100%. 
+    \n\nНапример, нека си представим, че Ви питаме за Вашите убеждения относно максималната температура в градуси Целзий във Вашия град или населено място утре, като се има предвид, че е лято, а прогнозата за времето предвижда проливни дъждове от сутринта. Следната таблица съдържа примерни отговори."""
 INSTRUCTIONS_CAPTION = """
-    Na przykład wyobraźmy sobie, że pytamy o Państwa przekonania dotyczące maksymalnej temperatury w stopniach Celsjusza w Państwa mieście lub miejscowości jutro, biorąc pod uwagę, że jest lato, a prognoza pogody przewiduje ulewne deszcze od rana. Poniższa tabela zawiera przykładowe odpowiedzi.
+    Както е показано в таблицата, дадените отговори предвиждат 45% вероятност за 25 градуса Целзий, 20% вероятност за 26 градуса Целзий и така нататък. Стълбовидната диаграма показва разпределението на вероятностите, приписани на различните температури. \\
+    Моля, преминете към Въпрос 1, като го изберете от менюто в лявата страна на екрана.
     """
-INSTRUCTION_TABLE_TITLE = "Prognoza temperatury"
-INSTRUCTION_TABLE_SUBTITLE = "_Przewiń tabelę, aby zobaczyć wszystkie dostępne opcje._"
+INSTRUCTION_TABLE_TITLE = "Прогноза за температурата"
+INSTRUCTION_TABLE_SUBTITLE = "_Превъртете таблицата, за да видите всички налични опции._"
 
 # This config are shared across all plots in the survey
 PLOT_CONFIG = {
     "title": {
-                "text": "Rozkład prawdopodobieństwa",
+                "text": "Разпределение на вероятностите",
                 "y":0.9,
                 "x":0.5,
                 "xanchor": "center",
@@ -69,7 +69,7 @@ PLOT_MARKER_LINE_WIDTH = 2  # Width of the bar outline
 PLOT_TEXT_POSITION = "auto"
 
 PROBABILITY_TEXT_STYLE = """font-family:sans-serif; color:{}; font-size: 20px;"""
-MISSING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">Do przydzielenia nadal pozostaje {{}}% prawdopodobieństwa.</b>"""
+MISSING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">За разпределяне все още остават {{}}% вероятност.</b>"""
 TOTAL_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">Przydzielony został całkowity zakres prawdopodobieństwa.</b>"""
 EXCEEDING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Red')}">Wprowadzone zostało {{}}% prawdopodobieństwa ponad 100%, proszę sprawdzić Państwa odpowiedzi!</b>"""
 
@@ -154,8 +154,8 @@ def instructions():
     st.subheader(INSTRUCTION_TABLE_TITLE)
     st.write(INSTRUCTION_TABLE_SUBTITLE)
 
-    label_column_title = "Temperatury"
-    value_column_title = "Prawdopodobieństwo (%)"
+    label_column_title = "Tемпература"
+    value_column_title = "Вероятност (%)"
 
     # Generate sample labels and values
     labels_column = ["< 15"] + [str(x) for x in range(16, 25)] + ["> 25"]
@@ -184,19 +184,19 @@ def generate_question_x_axis(config):
     interval = config['step_size_graph']
 
     # Create a list of ranges based on the provided values
-    x_axis = [minor_value] + [f"{round(i, 1)}% do {round((i + interval - 0.01), 2)}%" for i in np.arange(min_value, max_value, interval)] + [major_value]
+    x_axis = [minor_value] + [f"{round(i, 1)}% до {round((i + interval - 0.01), 2)}%" for i in np.arange(min_value, max_value, interval)] + [major_value]
 
     # TODO find a way to remove it
     if config['min_value_graph'] == -1:
         x_axis.insert(6, "0%")
-        x_axis[1] = '-0.99% to -0.81%'
-        x_axis[7] = '0.01% to 0.19%'
+        x_axis[1] = '-0.99% до -0.81%'
+        x_axis[7] = '0.01% до 0.19%'
     elif config['min_value_graph'] == -30:
         x_axis.insert(7, "0%")
-        x_axis[8] = '0.01% to 4.99%'
+        x_axis[8] = '0.01% до 4.99%'
     elif config['min_value_graph'] == -15:
         x_axis.insert(4, "0%")
-        x_axis[5] = '0.01% to 4.99%'
+        x_axis[5] = '0.01% до 4.99%'
     
     return x_axis
 
@@ -220,7 +220,7 @@ def table_and_plot(dataframe_name, changes_name, label_column, value_column, plo
         percentage_difference_warning(percentage_difference)
                     
     with plot_column:
-        fig = get_distribution_graph(bins_grid[label_column], bins_grid[value_column], "Oczekiwane prawdopodobieństwa", "Prawdopodobieństwo (%)")
+        fig = get_distribution_graph(bins_grid[label_column], bins_grid[value_column], "Разпределение на отговорите", "Вероятност (%)")
         st.plotly_chart(fig, key=plot_key)
 
 
@@ -264,11 +264,11 @@ def double_question(config):
     if dataframe_name_2 not in st.session_state:
         st.session_state[dataframe_name_2] = pd.DataFrame(list(zip(x_axis, y_axis)), columns=[label_column, value_column])
 
-    st.markdown("- In comparison to GROUP 1 that receives Financial Subsidy only.")
+    st.markdown("- Разлика в приходите между фирмите, получаващи както Финансов ваучер, така и Техническа помощ (ГРУПА 2), в сравнение с фирмите, които получават само Финансов ваучер (ГРУПА 1).")
 
     table_and_plot(dataframe_name_1, changes_name_1, label_column, value_column, plot_key_1)
 
-    st.markdown("- In comparison to GROUP 3 that receives Benchmarking Report.")
+    st.markdown("- Разлика в приходите между фирмите, получаващи както Финансов ваучер, така и Техническа помощ (ГРУПА 2), в сравнение с фирмите, които получават само Доклад за сравнителен анализ (ГРУПА 3).")
 
     table_and_plot(dataframe_name_2, changes_name_2, label_column, value_column, plot_key_2)
 

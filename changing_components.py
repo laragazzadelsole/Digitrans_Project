@@ -18,80 +18,80 @@ def safe_var(key):
 
 def effect_size_question(jsonfile_name, question_number):
         st.markdown(jsonfile_name['effect_size'])
-        st.markdown("- W porównaniu z GRUPĄ 1, która otrzymuje jedynie Voucher Finansowy.")
-        answer_1 = st.text_input("Proszę wpisać liczbę lub napisać 'Nie wiem'.", key = jsonfile_name['num_input_question_1'], value=st.session_state.get(f'effect_size_question_{question_number}_answer_1', ''))
-        st.markdown("- W porównaniu z GRUPĄ 3, która otrzymuje jedynie Raport Benchmarkingowy.")
-        answer_2 = st.text_input("Proszę wpisać liczbę lub napisać 'Nie wiem'.", key = jsonfile_name['num_input_question_2'], value=st.session_state.get(f'effect_size_question_{question_number}_answer_2', ''))
+        st.markdown("- В сравнение с ГРУПА 1, която получава само Финансов ваучер.")
+        answer_1 = st.text_input("Моля, въведете число или напишете 'Не знам'", key = jsonfile_name['num_input_question_1'], value=st.session_state.get(f'effect_size_question_{question_number}_answer_1', ''))
+        st.markdown("- В сравнение с ГРУПА 3, която получава само Доклад за сравнителен анализ.")
+        answer_2 = st.text_input("Моля, въведете число или напишете 'Не знам'.", key = jsonfile_name['num_input_question_2'], value=st.session_state.get(f'effect_size_question_{question_number}_answer_2', ''))
         save_input_to_session_state(f'effect_size_question_{question_number}_answer_1', answer_1)
         save_input_to_session_state(f'effect_size_question_{question_number}_answer_2', answer_2)
 
 
 def get_rct1_index(RCT_Q1):
-    if RCT_Q1 == 'Jestem bardziej zainteresowany/a wykorzystaniem RCT do ewaluacji innych instrumentów wsparcia':
+    if RCT_Q1 == 'Аз съм по-заинтересован/а от използването на RCT за оценка на други инструменти за подкрепа':
         return 0
-    elif RCT_Q1 == 'Moje zainteresowanie wykorzystaniem RCT do ewaluacji innych instrumentów wsparcia nie zmieniło się':
+    elif RCT_Q1 == 'Моят интерес към използването на RCT за оценка на други инструменти за подкрепа не се е променил':
         return 1
-    elif RCT_Q1 == 'Jestem mniej zainteresowany/a wykorzystaniem RCT do ewaluacji innych instrumentów wsparcia ':
+    elif RCT_Q1 == 'Аз съм по-малко заинтересован/а от използването на RCT за оценка на други инструменти за подкрепа.':
         return 2
     else:
         return 0
     
 def get_rct2_index(RCT_Q2):
-    if RCT_Q2 == 'RCT wprowadzilo do instrumentu wsparcia korzystne zmiany w porównaniu z instrumentami wsparcia bez RCT':
+    if RCT_Q2 == '•	RCT въведе благоприятни промени в инструмента за подкрепа в сравнение с инструментите за подкрепа без RCT':
         return 0
-    elif RCT_Q2 == 'RCT nie zmieniło sposobu, w jaki jest zaprojektowany instrument wsparcia':
+    elif RCT_Q2 == 'RCT не промени начина, по който е проектиран инструментът за подкрепа':
         return 1
-    elif RCT_Q2 == 'RCT spowodowało, że interwencja została zaprojektowana gorzej niż instrumenty bez RCT':
+    elif RCT_Q2 == 'RCT доведе до това, че интервенцията беше проектирана по-лошо от инструментите без RCT':
         return 2
     else:
         return 0
     
 def get_rct3_index(RCT_Q3):
-    if RCT_Q3 == 'RCT przyspieszyło wdrażanie instrumentu':
+    if RCT_Q3 == 'RCT ускори внедряването на инструмента':
         return 0
-    elif RCT_Q3 == 'RCT nie zmieniło tempa wdrażania instrumentu':
+    elif RCT_Q3 == 'RCT не промени темпото на внедряване на инструмента':
         return 1
-    elif RCT_Q3 == 'RCT spowolniło tempo wdrażania instrumentu':
+    elif RCT_Q3 == 'RCT забави темпото на внедряване на инструмента':
         return 2
     else:
         return 0
 
 def get_rct4_index(RCT_Q4):
-    if RCT_Q4 == 'Będę bardziej ufać danym o wpływie instrumentu mierzonego przy pomocy metodologii RCT niż w przypadku ewaluacji innych instrumentów, które wykorzystują standardowe metodologie w monitorowanie i ewaluacji (M&E)':
+    if RCT_Q4 == 'Ще имам повече доверие на данните за въздействието на инструмента, измерено с помощта на методологията RCT, отколкото в случай на оценка на други инструменти, които използват стандартни методологии за мониторинг и оценка (M&E)':
         return 0
-    elif RCT_Q4 == "Będę w takim samym stopniu ufać danym o wpływie instrumentu mierzonego przy pomocy metodologii RCT niż w przypadku ewaluacji innych instrumentów, które wykorzystują standardowe metodologie M&E":
+    elif RCT_Q4 == "Ще имам същото ниво на доверие в данните за въздействието на инструмента, измерено с помощта на методологията RCT, както и в случай на оценка на други инструменти, които използват стандартни методологии за M&E":
         return 1
-    elif RCT_Q4 == "Będę mniej ufać danym o wpływie instrumentu mierzonego przy pomocy metodologii RCT niż w przypadku ewaluacji innych instrumentów, które wykorzystują standardowe metodologie M&E":
+    elif RCT_Q4 == "Ще имам по-малко доверие в данните за въздействието на инструмента, измерено с помощта на методологията RCT, отколкото в случай на оценка на други инструменти, които използват стандартни методологии за M&E":
         return 2
     else:
         return 0
 
 def RCT_questions():
-    st.subheader('Pytania dot. randomizowanych ewaluacji')
-    st.write('Ta sekcja jest przeznaczona wyłącznie dla przedstawicieli Administracji Publicznej. Chcielibyśmy poznać Państwa opinię na temat randomizowanych badań kontrolnych (RCT) w kontekście programu Digitrans.')
-    st.write('1. Po moich dotychczasowych doświadczeniach związanych z udziałem w tym projekcie:')
-    RCT_Q1 = st.radio('Proszę wybrać jedną z poniższych opcji:', ['Jestem bardziej zainteresowany/a wykorzystaniem RCT do ewaluacji innych instrumentów wsparcia', 'Moje zainteresowanie wykorzystaniem RCT do ewaluacji innych instrumentów wsparcia nie zmieniło się', 'Jestem mniej zainteresowany/a wykorzystaniem RCT do ewaluacji innych instrumentów wsparcia'], index = get_rct1_index(safe_var('RCT_Q1')))
+    st.subheader('Въпроси относно рандомизираните оценки')
+    st.write('Тази секция е предназначена само за представители на Публичната администрация. Бихме искали да разберем Вашето мнение относно рандомизираните контролирани изследвания (RCT) в контекста на програмата Digitrans.')
+    st.write('1. След моя досегашен опит, свързан с участието в този проект:')
+    RCT_Q1 = st.radio('Моля, изберете една от следните опции:', ["Аз съм по-заинтересован/а от използването на RCT за оценка на други инструменти за подкрепа", "Моят интерес към използването на RCT за оценка на други инструменти за подкрепа не се е променил", "Аз съм по-малко заинтересован/а от използването на RCT за оценка на други инструменти за подкрепа."], index = get_rct1_index(safe_var('RCT_Q1')))
     save_input_to_session_state('RCT_Q1', RCT_Q1)
     
-    st.write('2. Prosimy o porównanie Państwa doświadczeń z instrumentu wsparcia Digitrans, który oceniamy za pomocą metodologii RCT, z podobnymi instrumentami, w których uczestniczyli Państwo, a które nie były poddane takiej ewaluacji. Prosimy o porównanie tego projektu z podobnymi projektami bez eksperymentalnej ewaluacji pod względem:')
-    st.write('- Projektowania interwencji')
-    RCT_Q2 = st.radio('Proszę wybrać jedną z poniższych opcji:', ['RCT wprowadzilo do instrumentu wsparcia korzystne zmiany w porównaniu z instrumentami wsparcia bez RCT', 'RCT nie zmieniło sposobu, w jaki jest zaprojektowany instrument wsparcia', 'RCT spowodowało, że interwencja została zaprojektowana gorzej niż instrumenty bez RCT'], index = get_rct2_index(safe_var('RCT_Q2')))
+    st.write('2. Моля, сравнете Вашия опит с инструмента за подкрепа Digitrans, който оценяваме с помощта на методологията RCT, с подобни инструменти, в които сте участвали, но които не са били подложени на такава оценка. Моля, сравнете този проект с подобни проекти без експериментална оценка по отношение на:')
+    st.write('- Проектиране на интервенцията')
+    RCT_Q2 = st.radio('Моля, изберете една от следните опции:', ['RCT въведе благоприятни промени в инструмента за подкрепа в сравнение с инструментите за подкрепа без RCT', 'RCT не промени начина, по който е проектиран инструментът за подкрепа', 'RCT доведе до това, че интервенцията беше проектирана по-лошо от инструментите без RCT'], index = get_rct2_index(safe_var('RCT_Q2')))
     save_input_to_session_state('RCT_Q2', RCT_Q2)
 
-    st.write('- Szybkości wdrażania')
-    RCT_Q3 = st.radio('Proszę wybrać jedną z poniższych opcji:', ['RCT przyspieszyło wdrażanie instrumentu', 'RCT nie zmieniło tempa wdrażania instrumentu', 'RCT spowolniło tempo wdrażania instrumentu'],  index = get_rct3_index(safe_var('RCT_Q3')))
+    st.write('- Скорост на внедряване')
+    RCT_Q3 = st.radio('Моля, изберете една от следните опции:', ['RCT ускори внедряването на инструмента', 'RCT не промени темпото на внедряване на инструмента', 'RCT забави темпото на внедряване на инструмента'],  index = get_rct3_index(safe_var('RCT_Q3')))
     save_input_to_session_state('RCT_Q3', RCT_Q3)
 
-    st.write('- Wiarygodności informacji o rezultatach instrumentu (wplywie na dzialalność firm)')
-    RCT_Q4 = st.radio('Proszę wybrać jedną z poniższych opcji:', ['Będę bardziej ufać danym o wpływie instrumentu mierzonego przy pomocy metodologii RCT niż w przypadku ewaluacji innych instrumentów, które wykorzystują standardowe metodologie w monitorowanie i ewaluacji (M&E),', "Będę w takim samym stopniu ufać danym o wpływie instrumentu mierzonego przy pomocy metodologii RCT niż w przypadku ewaluacji innych instrumentów, które wykorzystują standardowe metodologie M&E", "Będę mniej ufać danym o wpływie instrumentu mierzonego przy pomocy metodologii RCT niż w przypadku ewaluacji innych instrumentów, które wykorzystują standardowe metodologie M&E"],  index = get_rct4_index(safe_var('RCT_Q4')))
+    st.write('- Достоверност на информацията за резултатите от инструмента (въздействие върху дейността на фирмите)')
+    RCT_Q4 = st.radio('Моля, изберете една от следните опции:', ['Ще имам повече доверие на данните за въздействието на инструмента, измерено с помощта на методологията RCT, отколкото в случай на оценка на други инструменти, които използват стандартни методологии за мониторинг и оценка (M&E)', "Ще имам същото ниво на доверие в данните за въздействието на инструмента, измерено с помощта на методологията RCT, както и в случай на оценка на други инструменти, които използват стандартни методологии за M&E", "Ще имам по-малко доверие в данните за въздействието на инструмента, измерено с помощта на методологията RCT, отколкото в случай на оценка на други инструменти, които използват стандартни методологии за M&E"],  index = get_rct4_index(safe_var('RCT_Q4')))
     save_input_to_session_state('RCT_Q4', RCT_Q4)
 
-    st.write('- Czy uważają Państwo, że dzięki RCT udało się dotrzeć do nowych beneficjentów? Czy sądzą Państwo, że pomogło to w rozdysponowaniu większej ilości środków niż pierwotnie planowano?')
-    input_RCT_Q5 = st.text_input('Miejsce na pole tekstowe', max_chars=500, key = 'RCT_question5', value=st.session_state.get('input_RCT_Q5', ''))
+    st.write('- Смятате ли, че благодарение на RCT успяхме да достигнем до нови бенефициенти? Смятате ли, че това помогна за разпределянето на повече средства, отколкото първоначално беше планирано?')
+    input_RCT_Q5 = st.text_input('Място за текстово поле', max_chars=500, key = 'RCT_question5', value=st.session_state.get('input_RCT_Q5', ''))
     save_input_to_session_state('input_RCT_Q5', input_RCT_Q5)
 
-    st.write('- Czy mają Państwo jakiekolwiek inne przemyślenia dotyczące RCT, którymi chcieliby się Państwo podzielić?')
-    input_RCT_Q6 = st.text_input('Miejsce na pole tekstowe.', max_chars=500, value=st.session_state.get('input_RCT_Q6', ''))
+    st.write('- Смятате ли, че разпределянето на подкрепата с еднаква вероятност между фирмите, отговарящи на критериите за допустимост, е етично? Имахте ли същото мнение, преди да се запознаете с информацията относно методологията RCT?')
+    input_RCT_Q6 = st.text_input('Място за текстово поле', max_chars=500, value=st.session_state.get('input_RCT_Q6', ''))
     save_input_to_session_state('input_RCT_Q6', input_RCT_Q6)
 
 
@@ -106,7 +106,7 @@ def add_submission(df):
     creds = ServiceAccountCredentials.from_json_keyfile_dict(secrets_to_json(), scope)
     client = gspread.authorize(creds)
  
-    sheet = client.open("Digitrans_Survey_Answers_Polish").sheet1
+    sheet = client.open("Digitrans_Survey_Answers_Bulgarian").sheet1
 
     column_names_list = df.columns.tolist()
     #column_names = sheet.append_row(column_names_list)

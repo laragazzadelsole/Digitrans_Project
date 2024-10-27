@@ -14,7 +14,7 @@ import numpy as np
 st.set_page_config(layout="wide")
 
 # Load JSON configuration
-config = json.load(open('config.json'))
+config = json.load(open('config.json', encoding="utf8"))
 
 # Initializing session state if not already initialized
 if 'initialized' not in st.session_state:
@@ -24,90 +24,90 @@ if 'initialized' not in st.session_state:
 sidebar_page_selection = sidebar()
 
 # Personal information page
-if sidebar_page_selection == "Introduction":
+if sidebar_page_selection == "Úvod":
     survey_introduction(config)
     consent_form()
 
-elif sidebar_page_selection == "Personal Information":
+elif sidebar_page_selection == "Osobné údaje":
     personal_information()
 
 # Instructions page
-elif sidebar_page_selection == "Instructions":
+elif sidebar_page_selection == "Inštrukcie":
     instructions()
 
 # Question 1
-elif sidebar_page_selection == "Question 1":
+elif sidebar_page_selection == "Otázka 1":
     q1_config = config['question1']
     create_question(q1_config)
-    if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
+    if safe_var('professional_category') in ['Verejná správa', 'Výskumný tím']:
         effect_size_question(q1_config, 1)
         
 # Question 2
-elif sidebar_page_selection == "Question 2":
+elif sidebar_page_selection == "Otázka 2":
     q2_config = config['question2']
     create_question(q2_config)
-    if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
+    if safe_var('professional_category') in ['Verejná správa', 'Výskumný tím']:
         effect_size_question(q2_config, 2)
 # Question 3
-elif sidebar_page_selection == "Question 3":
+elif sidebar_page_selection == "Otázka 3":
     q3_config = config['question3']
     create_question(q3_config)
-    if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
+    if safe_var('professional_category') in ['Verejná správa', 'Výskumný tím']:
         effect_size_question(q3_config, 3)
 # Question 4
-elif sidebar_page_selection == "Question 4":
+elif sidebar_page_selection == "Otázka 4":
     q4_config = config['question4']
     double_question(q4_config)
-    if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
+    if safe_var('professional_category') in ['Verejná správa', 'Výskumný tím']:
         effect_size_question(q4_config, 4)
 
 # Question 5
-elif sidebar_page_selection == "Question 5":
+elif sidebar_page_selection == "Otázka 5":
     q5_config = config['question5']
     double_question(q5_config)
-    if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
+    if safe_var('professional_category') in ['Verejná správa', 'Výskumný tím']:
         effect_size_question(q5_config, 5)
 # Question 6
-elif sidebar_page_selection == "Question 6":
+elif sidebar_page_selection == "Otázka 6":
     q6_config = config['question6']
     double_question(q6_config)
-    if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:
+    if safe_var('professional_category') in ['Verejná správa', 'Výskumný tím']:
         effect_size_question(q6_config, 6)
 
 # Question 7
-elif sidebar_page_selection == "Question 7":
+elif sidebar_page_selection == "Otázka 7":
     q7_config = config['question7']
     create_question(q7_config)
 
     
 # Question 8
-elif sidebar_page_selection == "Question 8":
+elif sidebar_page_selection == "Otázka 8":
     q8_config = config['question8']
     create_question(q8_config)
 
 
 # Question 9
-elif sidebar_page_selection == "Question 9":
+elif sidebar_page_selection == "Otázka 9":
     q9_config = config['question9']
     create_question(q9_config)
     _, col2, _, _ = st.columns(4)
     with col2:
         st.image("SatSunGraph.png", width=700)
-    st.write("Saturday and Sunday temperatures in Washington DC for each weekend in 2022. As we might expect, there is a strong correlation between the temperature on a Saturday and on the Sunday, since some parts of the year are hot, and others colder. The correlation here is 0.88.")
+    st.write("Nižšie uvádzame graf zobrazujúci koreláciu medzi teplotami v soboty a v nedele pre každý víkend roku 2022 vo Washingtone. Ako sa dalo očakávať, existuje silná korelácia medzi teplotou v sobotu a teplotou v nedeľu, pretože niektoré časti roka sú horúce a iné chladnejšie. V tomto prípade je korelácia 0,88, čo naznačuje veľmi silný pozitívny vzťah.")
 
 # Question 10
-elif sidebar_page_selection == "Question 10":
+elif sidebar_page_selection == "Otázka 10":
     q10_config = config['question10']
     create_question(q10_config)
 
 # Question 11 - Cost/Benefit
-elif sidebar_page_selection == "Question 11":
+elif sidebar_page_selection == "Otázka 11":
     cost_benefit_question()
 
 # Question 12 - Risk Aversion
-elif sidebar_page_selection == "Question 12":
+elif sidebar_page_selection == "Otázka 12":
     risk_aversion_question()
-    if safe_var('professional_category') in ['Government Official/Donor', 'Researcher']:    
+    if safe_var('professional_category') in ['Verejná správa', 'Výskumný tím']:    
         RCT_questions()
 
 # Add some spacing in the sidebar

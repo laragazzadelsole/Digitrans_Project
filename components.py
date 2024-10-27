@@ -7,44 +7,44 @@ import plotly.graph_objs as go
 # Sidebar constants
 SIDEBAR_TITLE = "Survey Index"
 NUMBER_OF_QUESTIONS = 12
-INFORMATION_PAGES = ["Introduction", "Personal Information", "Instructions"]
-QUESTION_PAGES = [f"Question {question_number}" for question_number in range(1, NUMBER_OF_QUESTIONS + 1)]
+INFORMATION_PAGES = ["Úvod", "Osobné údaje", "Inštrukcie"]
+QUESTION_PAGES = [f"Otázka {question_number}" for question_number in range(1, NUMBER_OF_QUESTIONS + 1)]
 
 # Consent constants
-CONSENT_TITLE = "By submitting the form below you agree to your data being used for research purposes."
-CONSENT_SENTENCE = "I understand and consent."
-CONSENT_SUCCESS = "You can now start the survey! Please move to questions by clicking on the buttons in the sidebar on the left."
+CONSENT_TITLE = "Odoslaním tohto formulára súhlasíte s použitím Vašich odpovedí na výskumné účely."
+CONSENT_SENTENCE = "Súhlasím"
+CONSENT_SUCCESS = "Ďakujeme Vám za spoluprácu a tešíme sa na Vaše odpovede!"
 
 # Personal information constants
-PERSONAL_INFORMATION_PAGE_TITLE = "Personal Data"
+PERSONAL_INFORMATION_PAGE_TITLE = "Osobné údaje"
 PERSONAL_INFORMATION_CONFIG = {
-    "user_full_name": "Please, enter your full name and surname:",
-    "user_position": "Please, enter your working title:",
-    "user_professional_category": "Please, specify your professional category:",
-    "user_years_of_experience": "Please, insert the years of experience you have working on digitalization:"
+    "user_full_name": "Meno a priezvisko:",
+    "user_position": "Pozícia:",
+    "user_professional_category": "Skupina:",
+    "user_years_of_experience": "Prosím, uveďte počet rokov skúseností, ktoré máte v podpore digitalizácie súkromného sektora:"
 }
-PROFESSIONAL_CATEGORY_OPTIONS = ("Government Official/Donor", "Program Implementer/Practitioner", "Researcher")
+PROFESSIONAL_CATEGORY_OPTIONS = ("Verejná správa", "Implementačný partner", "Výskumný tím")
 
 # Instructions constants
-INSTRUCTIONS_TITLE = "Instructions"
+INSTRUCTIONS_TITLE = "Inštrukcie"
 INSTRUCTIONS_SUBTITLE = """
-    This example is designed to help you understand how to effectively respond to this survey. \\
-    For each question, you have a _column with two columns. \\
-    Please allocate probabilities based on the likelihood that you think a specific event will happen under the "Probability" column. \\
-    The plot next to it will show the distribution of your answers. \\
-    As an example, suppose we asked about your beliefs regarding tomorrow's maximum temperature in degrees Celsius in your city or town.
+    Nasledujúci príklad má za cieľ pomôcť Vám pochopiť formát otázok v tomto dotazníku a dozvedieť sa ako poskytovať odpovede týkajúce sa vplyvu účasti v programe Digitrans na činnosť príjemcov programu. \\
+    Pre každú otázku nájdete tabuľku s intervalmi, ako je tá nižšie. Pri odpovedi na otázku prosím prideľte pravdepodobnosť každej situácii zapísaním čísla do jednotlivých buniek, v závislosti od pravdepodobnosti, že podľa Vášho názoru nastane určená udalosť. Prosím, pamätajte, že suma pravdepodobností priradených všetkým situáciám nesmie prekročiť 100%. \\
+    Napríklad, predstavte si, že sa pýtame na Vaše presvedčenia týkajúce sa maximálnej teploty v stupňoch Celzia vo Vašom meste alebo v obci na zajtra, berúc do úvahy, že je leto a predpoveď počasia predpovedá silný dážď od rána. Nasledujúca tabuľka obsahuje vzorové odpovede.
     """
 INSTRUCTIONS_CAPTION = """
-    In this case, your prediction indicates a 45\% chance of the maximum temperature reaching 26 degrees Celsius, \\
-    20\% chance of it reaching 26 degrees Celsius, and so on.
+    
+    Ako je znázornené v tabuľke, poskytnuté odpovede predpokladajú, že existuje 45%-tná pravdepodobnosť 25 stupňov Celzia, 20%-tná pravdepodobnosť 26 stupňov Celzia a tak ďalej. Stĺpcový graf zobrazuje rozloženie pravdepodobností priradených rôznym teplotám. \\
+    Prosíme Vás, aby ste prešli na Otázku 1 jej výberom v menu na ľavej strane obrazovky.
+
     """
-INSTRUCTION_TABLE_TITLE = "Temperature Forecast Tomorrow in Your City"
-INSTRUCTION_TABLE_SUBTITLE = "_Please scroll on the table to see all available options._"
+INSTRUCTION_TABLE_TITLE = "Predpoveď teploty"
+INSTRUCTION_TABLE_SUBTITLE = "_Posuňte tabuľku, aby ste videli všetky dostupné možnosti._"
 
 # This config are shared across all plots in the survey
 PLOT_CONFIG = {
     "title": {
-                "text": "Probability distribution",
+                "text": "Rozloženie pravdepodobnosti",
                 "y":0.9,
                 "x":0.5,
                 "xanchor": "center",
@@ -59,29 +59,30 @@ PLOT_CONFIG = {
             ),
     "y_axis": dict(
                 range=[0, 100], 
-                gridcolor="rgba(255, 255, 255, 0.2)",  # Light grid on dark background
+                gridcolor="rgba(255, 255, 255, 0.2)",  
                 showline=True,
                 linewidth=2,
                 linecolor="white",
                 mirror=True
             )
 }
-PLOT_MARKER_COLOR = "rgba(50, 205, 50, 0.9)"  # A nice bright green
-PLOT_MARKER_LINE_COLOR = "rgba(0, 128, 0, 1.0)"  # Dark green outline for contrast
-PLOT_MARKER_LINE_WIDTH = 2  # Width of the bar outline
+PLOT_MARKER_COLOR = "rgba(50, 205, 50, 0.9)"  
+PLOT_MARKER_LINE_COLOR = "rgba(0, 128, 0, 1.0)"  
+PLOT_MARKER_LINE_WIDTH = 2  
 PLOT_TEXT_POSITION = "auto"
 
 PROBABILITY_TEXT_STYLE = """font-family:sans-serif; color:{}; font-size: 20px;"""
-MISSING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">You still have to allocate {{}}% probability.</b>"""
+MISSING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">Na pridelenie stále zostáva {{}}% pravdepodobnosti.</b>"""
 TOTAL_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">You have allocated all probabilities!</b>"""
 EXCEEDING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Red')}">You have inserted {{}}% more, please review your percentage distribution.</b>"""
 
-RISK_AVERSION_QUESTION_TITLE = "Question 12 - Risk Aversion"
-RISK_AVERSION_QUESTION_SUBTITLE = "Rate your willingness to take risks in general on a 10-point scale, with 1 completely unwilling and 10 completely willing."
-SLIDER_DESCRIPTION = "Please move the slider to indicate your preference."
+COST_BENEFIT_QUESTION_TITLE = "Otázka 11 - Pomer nákladov a prínosov"
+COST_BENEFIT_QUESTION_SUBTITLE = "Pomer prínosov a nákladov umožňuje porovnať náklady na činnosť alebo projekt s prínosmi, ktoré prináša. Napríklad: \n\n- Ak program stojí 100 000 €, a peňažná hodnota jeho prínosov je 150 000 €, pomer prínosov k nákladom by bol 1:1,5. \n- To znamená, že na každé vynaložené euro program prináša jeden a pol eura prínosov. \n- Vyšší pomer naznačuje vyššiu efektívnosť a rentabilitu programu. \n\nVzhľadom na vyššie uvedené vysvetlenie by sme chceli poznať Váš názor: \n\nPri akom pomere prínosov k nákladom by ste považovali za vhodné, aby bol pilotný program Digitrans implementovaný vo väčšom meradle? \n\nProsím, vezmite do úvahy nasledujúce predpoklady: \n\n- 'Prínosy' sú efekty pozorované po 2 rokoch fungovania programu (zahŕňajúce okrem iného dodatočné tržby a zisk vyprodukovaný firmami v Skupine 2 a peňažný ekvivalent dodatočných pracovných miest). \n- 'Náklady' zahŕňajú celkové výdavky vynaložené na implementáciu, fungovanie a udržiavanie programu (vrátane administratívnych a všeobecných nákladov)."
+SLIDER_DESCRIPTION = "Prosím, posuňte posuvník, aby ste označili Vašu preferenciu."
 
-COST_BENEFIT_QUESTION_TITLE = "Question 11 - Cost/Benefit Ratio"
-COST_BENEFIT_QUESTION_SUBTITLE = "In simple terms, a cost-benefit ratio is used to compare the costs of an action or project against the benefits it delivers. For instance, if a program costs €100.000 and the monetized value of its benefits is €150.000, the cost-benefit ratio would be 1:1.5. This means that for every euro spent, the program delivers one and a half euro in benefits. A higher ratio indicates greater efficiency and value for money. This question prompts to consider the efficiency and economic justification for scaling a program, ensuring that the decision aligns with both fiscal responsibility and the desired impact. \nAt what cost-benefit ratio would you consider scaling a program? \nConsider “benefits” that occurred after 2 years of running the program and “costs” as the total expenses incurred to implement, operate, and maintain a program or project (including administration and overhead costs)."
+RISK_AVERSION_QUESTION_TITLE = "Otázka 12 - Averzia k riziku"
+RISK_AVERSION_QUESTION_SUBTITLE = "Na záver nášho dotazníka by sme chceli poznať Vašu celkovú ochotu podstupovať riziko. Táto informácia nám pomôže lepšie pochopiť kontext Vašich predchádzajúcich odpovedí. \n\nAko by ste ohodnotili svoju celkovú ochotu podstupovať riziko na škále od 1 do 10? \n\n- 1 znamená úplnú neochotu podstupovať riziko \n- 10 znamená úplnú pripravenosť podstupovať riziko \n\nProsím, posuňte posuvník, aby ste označili Vaše hodnotenie."
+
 
 def sidebar():
     st.sidebar.title(SIDEBAR_TITLE)
@@ -157,8 +158,8 @@ def instructions():
     st.subheader(INSTRUCTION_TABLE_TITLE)
     st.write(INSTRUCTION_TABLE_SUBTITLE)
 
-    label_column_title = "Temperature"
-    value_column_title = "Probability (%)"
+    label_column_title = "Teplota"
+    value_column_title = "Pravdepodobnosť (%)"
 
     # Generate sample labels and values
     labels_column = ["< 15"] + [str(x) for x in range(16, 25)] + ["> 25"]
@@ -187,19 +188,19 @@ def generate_question_x_axis(config):
     interval = config['step_size_graph']
 
     # Create a list of ranges based on the provided values
-    x_axis = [minor_value] + [f"{round(i, 1)}% to {round((i + interval - 0.01), 2)}%" for i in np.arange(min_value, max_value, interval)] + [major_value]
+    x_axis = [minor_value] + [f"{round(i, 1)}% až {round((i + interval - 0.01), 2)}%" for i in np.arange(min_value, max_value, interval)] + [major_value]
 
     # TODO find a way to remove it
     if config['min_value_graph'] == -1:
         x_axis.insert(6, "0%")
-        x_axis[1] = '-0.99% to -0.81%'
-        x_axis[7] = '0.01% to 0.19%'
+        x_axis[1] = '-0.99% až -0.81%'
+        x_axis[7] = '0.01% až 0.19%'
     elif config['min_value_graph'] == -30:
         x_axis.insert(7, "0%")
-        x_axis[8] = '0.01% to 4.99%'
+        x_axis[8] = '0.01% až 4.99%'
     elif config['min_value_graph'] == -15:
         x_axis.insert(4, "0%")
-        x_axis[5] = '0.01% to 4.99%'
+        x_axis[5] = '0.01% až 4.99%'
     
     return x_axis
 
@@ -223,7 +224,7 @@ def table_and_plot(dataframe_name, changes_name, label_column, value_column, plo
         percentage_difference_warning(percentage_difference)
                     
     with plot_column:
-        fig = get_distribution_graph(bins_grid[label_column], bins_grid[value_column], "Expectation Range", "Probability (%)")
+        fig = get_distribution_graph(bins_grid[label_column], bins_grid[value_column], "Expectation Range", "Pravdepodobnosť (%)")
         st.plotly_chart(fig, key=plot_key)
 
 
@@ -267,11 +268,11 @@ def double_question(config):
     if dataframe_name_2 not in st.session_state:
         st.session_state[dataframe_name_2] = pd.DataFrame(list(zip(x_axis, y_axis)), columns=[label_column, value_column])
 
-    st.markdown("- In comparison to GROUP 1 that receives Financial Subsidy only.")
+    st.markdown("- Rozdiel v tržbách medzi firmami dostávajúcimi finančný voucher aj technickú pomoc (SKUPINA 2) v porovnaní s firmami, ktoré dostávajú iba finančný voucher (SKUPINA 1)")
 
     table_and_plot(dataframe_name_1, changes_name_1, label_column, value_column, plot_key_1)
 
-    st.markdown("- In comparison to GROUP 3 that receives Benchmarking Report.")
+    st.markdown("- Rozdiel v čistom zisku medzi firmami dostávajúcimi finančný voucher aj technickú pomoc (SKUPINA 2) v porovnaní s firmami, ktoré dostávajú iba benchmarkingovú správu (SKUPINA 3)")
 
     table_and_plot(dataframe_name_2, changes_name_2, label_column, value_column, plot_key_2)
 

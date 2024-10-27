@@ -10,11 +10,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from fixed_components import *
 import plotly.graph_objs as go
-    
-def safe_var(key):
-    if key in st.session_state:
-        return st.session_state[key]
-    return None
 
 def effect_size_question(jsonfile_name, question_number):
         st.markdown(jsonfile_name['effect_size'])
@@ -111,10 +106,9 @@ def add_submission(df):
     column_names_list = df.columns.tolist()
     #column_names = sheet.append_row(column_names_list)
 
-    sheet_row_update = sheet.append_rows(df.values.tolist()) #.values.tolist())
+    sheet_row_update = sheet.append_rows(df.values.tolist()) 
     
     #Navigate to the folder in Google Drive. Copy the Folder ID found in the URL. This is everything that comes after “folder/” in the URL.
     backup_sheet = client.create(f'Backup_{df.iloc[0, 0]}_{datetime.now()}', folder_id= secrets_to_json()['folder_id']).sheet1
-    backup_sheet = backup_sheet.append_rows(df.values.tolist()) #(new_bins_df.iloc[:2].values.tolist())
-    #backup_sheet.share('', perm_type = 'user', role = 'writer')
+    backup_sheet = backup_sheet.append_rows(df.values.tolist())
 

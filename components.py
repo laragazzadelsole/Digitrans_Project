@@ -8,7 +8,7 @@ import plotly.graph_objs as go
 SIDEBAR_TITLE = "Spis Treści"
 NUMBER_OF_QUESTIONS = 12
 INFORMATION_PAGES = ["Въведение", "Лични данни", "Инструкции"]
-QUESTION_PAGES = [f"Въпрос  {question_number}" for question_number in range(1, NUMBER_OF_QUESTIONS + 1)]
+QUESTION_PAGES = [f"Въпрос {question_number}" for question_number in range(1, NUMBER_OF_QUESTIONS + 1)]
 
 # Consent constants
 CONSENT_TITLE = "С изпращането на следния формуляр Вие се съгласявате Вашите отговори да бъдат използвани за изследователски цели."
@@ -73,12 +73,12 @@ MISSING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')
 TOTAL_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">Przydzielony został całkowity zakres prawdopodobieństwa.</b>"""
 EXCEEDING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Red')}">Wprowadzone zostało {{}}% prawdopodobieństwa ponad 100%, proszę sprawdzić Państwa odpowiedzi!</b>"""
 
-COST_BENEFIT_QUESTION_TITLE = "Pytanie 11 – Stosunek kosztów do korzyści"
-COST_BENEFIT_QUESTION_SUBTITLE = "Stosunek korzyści do kosztów pozwala na porównania kosztów działania lub projektu z korzyściami, jakie przynosi. Na przykład: \n\n- Jeśli program kosztuje 100 000 zł, a wartość pieniężna jego korzyści wynosi 150 000 zł, stosunek korzyści do kosztów wynosiłby 1:1,5. \n- Oznacza to, że na każdą wydaną złotówkę program przynosi półtora złotego korzyści. \n- Wyższy stosunek wskazuje na większą efektywność i opłacalność programu. \n\nBiorąc pod uwagę powyższe wyjaśnienie, chcielibyśmy poznać Państwa opinię: Przy jakim stosunku korzyści do kosztów uznaliby Państwo, że program pilotażowy Digitrans powinien zostać wdrożony na większą skalę? \nProszę wziąć pod uwagę następujące założenia: \n\n- 'Korzyści to efekty zaobserwowane po 2 latach działania programu (obejmujące m.in. dodatkowe przychody i zysk wypracowane przez firmy w Grupie 2 oraz ekwiwalent pieniężny dodatkowych miejsc pracy. \n- 'Koszty obejmują całkowite wydatki poniesione na wdrożenie, funkcjonowanie i utrzymanie programu (w tym koszty administracyjne i ogólne)."
+COST_BENEFIT_QUESTION_TITLE = "Въпрос 11 - Съотношение между ползи и разходи"
+COST_BENEFIT_QUESTION_SUBTITLE = "Съотношението между ползи и разходи позволява сравнение на разходите за дадено действие или проект с ползите, които то носи. Например: \n\n- Ако програмата струва 100 000 лв., а паричната стойност на ползите от нея е 150 000 лв., съотношението между ползи и разходи би било 1:1,5. \n- Това означава, че за всеки изразходван лев програмата носи полза от лев и половина. \n- По-високото съотношение показва по-голяма ефективност и рентабилност на програмата. \n\nКато имате предвид горното обяснение, бихме искали да разберем Вашето мнение: \n\nПри какво съотношение между ползи и разходи бихте счели, че пилотната програма Digitrans трябва да бъде внедрена в по-голям мащаб? \nРазбира се, ще продължа с превода на въпросника: \n\n- 'Ползите' са ефектите, наблюдавани след 2 години на работа на програмата (включително допълнителните приходи и печалба, генерирани от фирмите в Група 2, както и паричния еквивалент на допълнителните работни места). \n- 'Разходите' включват общите разходи, направени за внедряване, функциониране и поддръжка на програмата (включително административни и общи разходи)."
 
-RISK_AVERSION_QUESTION_TITLE = "Pytanie 12 - Niechęć do ryzyka"
-RISK_AVERSION_QUESTION_SUBTITLE = "Na zakończenie naszej ankiety chcielibyśmy poznać Państwa ogólną skłonność do podejmowania ryzyka. Informacja ta pomoże nam lepiej zrozumieć kontekst Państwa wcześniejszych odpowiedzi. \nJak oceniają Państwo swoją ogólną skłonność do podejmowania ryzyka na skali od 1 do 10? \n\n- 1 oznacza całkowitą niechęć do podejmowania ryzyka. \n- 10 oznacza pełną gotowość do podejmowania ryzyka."
-SLIDER_DESCRIPTION = "Proszę przesunąć suwak, aby wskazać Państwa ocenę."
+RISK_AVERSION_QUESTION_TITLE = "Въпрос 12 - Склонност към риск"
+RISK_AVERSION_QUESTION_SUBTITLE = "В заключение на нашата анкета бихме искали да разберем Вашата обща склонност към поемане на риск. Тази информация ще ни помогне да разберем по-добре контекста на Вашите предишни отговори. \n\nКак оценявате Вашата обща склонност към поемане на риск по скала от 1 до 10? \n\n- 1 означава пълно нежелание за поемане на риск \n- 10 означава пълна готовност за поемане на риск."
+SLIDER_DESCRIPTION = "Моля, преместете плъзгача, за да посочите Вашето предпочитание."
 
 def sidebar():
     st.sidebar.title(SIDEBAR_TITLE)

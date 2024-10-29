@@ -138,7 +138,7 @@ if st.session_state.get('submit'):
     }
 
     def get_answer_df(question_number, colname):
-        question_df = pd.DataFrame([list(table_answers[f'answers{question_number}'][colname]), list(table_answers[f'answers{question_number}']['Probability (%)'])])
+        question_df = pd.DataFrame([list(table_answers[f'answers{question_number}'][colname]), list(table_answers[f'answers{question_number}']['Pravdepodobnosť (%)'])])
         return question_df.rename(columns=question_df.iloc[0], copy=False).iloc[1:].reset_index(drop=True)
 
     df1 = get_answer_df('1', 'Percentuálne body')

@@ -194,5 +194,5 @@ if st.session_state.get('submit'):
 
     add_submission(final_df)
    
-    st.sidebar.success(f"Dziękujemy za poświęcony czas i podzielenie się Państwa cennymi spostrzeżeniami na temat insturmentu pilotażowego Digitrans.")
+    st.sidebar.success(f"Dziękujemy za wypełnienie ankiety! Państwa odpowiedzi zostały zapisane.")
 

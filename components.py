@@ -5,7 +5,7 @@ import numpy as np
 import plotly.graph_objs as go
 
 # Sidebar constants
-SIDEBAR_TITLE = "Spis Treści"
+SIDEBAR_TITLE = "Индекс на анкетата"
 NUMBER_OF_QUESTIONS = 12
 INFORMATION_PAGES = ["Въведение", "Лични данни", "Инструкции"]
 QUESTION_PAGES = [f"Въпрос {question_number}" for question_number in range(1, NUMBER_OF_QUESTIONS + 1)]
@@ -70,8 +70,8 @@ PLOT_TEXT_POSITION = "auto"
 
 PROBABILITY_TEXT_STYLE = """font-family:sans-serif; color:{}; font-size: 20px;"""
 MISSING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">За разпределяне все още остават {{}}% вероятност.</b>"""
-TOTAL_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">Przydzielony został całkowity zakres prawdopodobieństwa.</b>"""
-EXCEEDING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Red')}">Wprowadzone zostało {{}}% prawdopodobieństwa ponad 100%, proszę sprawdzić Państwa odpowiedzi!</b>"""
+TOTAL_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">Разпределили сте всички вероятности!</b>"""
+EXCEEDING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Red')}">Въвели сте с {{}}% повече, моля, прегледайте разпределението на процентите си!</b>"""
 
 COST_BENEFIT_QUESTION_TITLE = "Въпрос 11 - Съотношение между ползи и разходи"
 COST_BENEFIT_QUESTION_SUBTITLE = "Съотношението между ползи и разходи позволява сравнение на разходите за дадено действие или проект с ползите, които то носи. Например: \n\n- Ако програмата струва 100 000 лв., а паричната стойност на ползите от нея е 150 000 лв., съотношението между ползи и разходи би било 1:1,5. \n- Това означава, че за всеки изразходван лев програмата носи полза от лев и половина. \n- По-високото съотношение показва по-голяма ефективност и рентабилност на програмата. \n\nКато имате предвид горното обяснение, бихме искали да разберем Вашето мнение: \n\nПри какво съотношение между ползи и разходи бихте счели, че пилотната програма Digitrans трябва да бъде внедрена в по-голям мащаб? \nРазбира се, ще продължа с превода на въпросника: \n\n- 'Ползите' са ефектите, наблюдавани след 2 години на работа на програмата (включително допълнителните приходи и печалба, генерирани от фирмите в Група 2, както и паричния еквивалент на допълнителните работни места). \n- 'Разходите' включват общите разходи, направени за внедряване, функциониране и поддръжка на програмата (включително административни и общи разходи)."
@@ -220,7 +220,7 @@ def table_and_plot(dataframe_name, changes_name, label_column, value_column, plo
         percentage_difference_warning(percentage_difference)
                     
     with plot_column:
-        fig = get_distribution_graph(bins_grid[label_column], bins_grid[value_column], "Разпределение на отговорите", "Вероятност (%)")
+        fig = get_distribution_graph(bins_grid[label_column], bins_grid[value_column], "Диапазон на очакванията", "Вероятност (%)")
         st.plotly_chart(fig, key=plot_key)
 
 

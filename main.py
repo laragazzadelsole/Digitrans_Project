@@ -116,9 +116,9 @@ elif sidebar_page_selection == "Въпрос 12":
 for _ in range(4):
     st.sidebar.write("")
 
-st.sidebar.write("Przed kliknięciem przycisku „Submit” proszę przejrzeć wszystkie pytania, aby upewnić się, że wszystkie odpowiedzi zostały udzielone.")
+st.sidebar.write("Моля, прегледайте всички въпроси, за да се уверите, че сте ги попълнили преди да натиснете Изпрати.")
 
-st.sidebar.button('Submit', on_click=click_submit)
+st.sidebar.button('Изпрати', on_click=click_submit)
 
 #SUBMISSION
 if st.session_state.get('submit'):
@@ -140,22 +140,22 @@ if st.session_state.get('submit'):
     }
 
     def get_answer_df(question_number, colname):
-        question_df = pd.DataFrame([list(table_answers[f'answers{question_number}'][colname]), list(table_answers[f'answers{question_number}']['Prawdopodobieństwo (%)'])])
+        question_df = pd.DataFrame([list(table_answers[f'answers{question_number}'][colname]), list(table_answers[f'answers{question_number}']['Вероятност (%)'])])
         return question_df.rename(columns=question_df.iloc[0], copy=False).iloc[1:].reset_index(drop=True)
 
-    df1 = get_answer_df('1', 'Punkty procentowe')
-    df2 = get_answer_df('2', 'Punkty procentowe')
-    df3 = get_answer_df('3', 'Procenty')
-    df4 = get_answer_df('4', 'Procenty')
-    df4_1 = get_answer_df('4_1', 'Procenty')
-    df5 = get_answer_df('5', 'Procenty')
-    df5_1 = get_answer_df('5_1', 'Procenty')
-    df6 = get_answer_df('6', 'Procenty')
-    df6_1 = get_answer_df('6_1', 'Procenty')
-    df7 = get_answer_df('7', 'Procenty')
-    df8 = get_answer_df('8', 'Procenty')
-    df9 = get_answer_df('9', 'Korelacja')
-    df10 = get_answer_df('10', 'Korelacja')
+    df1 = get_answer_df('1', 'Процентни точки')
+    df2 = get_answer_df('2', 'Процентни точки')
+    df3 = get_answer_df('3', 'Процент')
+    df4 = get_answer_df('4', 'Процент')
+    df4_1 = get_answer_df('4_1', 'Процент')
+    df5 = get_answer_df('5', 'Процент')
+    df5_1 = get_answer_df('5_1', 'Процент')
+    df6 = get_answer_df('6', 'Процент')
+    df6_1 = get_answer_df('6_1', 'Процент')
+    df7 = get_answer_df('7', 'Процент')
+    df8 = get_answer_df('8', 'Процент')
+    df9 = get_answer_df('9', 'Корелация')
+    df10 = get_answer_df('10', 'Корелация')
 
 
     df_list = [df1, df2, df3, df4, df4_1, df5, df5_1, df6, df6_1, df7, df8, df9, df10]
@@ -200,5 +200,5 @@ if st.session_state.get('submit'):
 
     add_submission(final_df)
    
-    st.sidebar.success(f"Dziękujemy za poświęcony czas i podzielenie się Państwa cennymi spostrzeżeniami na temat insturmentu pilotażowego Digitrans.")
+    st.sidebar.success(f"Благодарим Ви, че попълнихте анкетата! Вашите отговори са регистрирани.")
 

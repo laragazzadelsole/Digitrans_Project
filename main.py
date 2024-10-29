@@ -114,9 +114,9 @@ elif sidebar_page_selection == "Otázka 12":
 for _ in range(4):
     st.sidebar.write("")
 
-st.sidebar.write("Please, go through all the questions to make sure you completed all of them before clicking Submit.")
+st.sidebar.write("Prosím, prejdite si všetky otázky, aby ste sa uistili, že ste ich všetky vyplnili, predtým ako kliknete na Odoslať.")
 
-st.sidebar.button('Submit', on_click=click_submit)
+st.sidebar.button('Odoslať', on_click=click_submit)
 
 #SUBMISSION
 if st.session_state.get('submit'):
@@ -194,5 +194,5 @@ if st.session_state.get('submit'):
 
     add_submission(final_df)
    
-    st.sidebar.success(f"Thank you for completing the Survey! Your answers have been registered.")
+    st.sidebar.success(f"Ďakujeme, že ste vyplnili prieskum! Vaše odpovede boli zaregistrované.")
 

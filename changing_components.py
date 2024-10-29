@@ -27,41 +27,41 @@ def effect_size_question(jsonfile_name, question_number):
 
 
 def get_rct1_index(RCT_Q1):
-    if RCT_Q1 == 'More interested in using RCTs for evaluation of other government projects':
+    if RCT_Q1 == 'Som viac zainteresovaný/á využívať RCT na hodnotenie iných podporných nástrojov':
         return 0
-    elif RCT_Q1 == 'Just as interested in using RCTs for evaluation of other government projects as I was before starting this one':
+    elif RCT_Q1 == 'Môj záujem o využívanie RCT na hodnotenie iných podporných nástrojov sa nezmenil':
         return 1
-    elif RCT_Q1 == 'Less interested in using RCTs for evaluation of other government projects':
+    elif RCT_Q1 == 'Som menej zainteresovaný/á využívať RCT na hodnotenie iných podporných nástrojov':
         return 2
     else:
         return 0
     
 def get_rct2_index(RCT_Q2):
-    if RCT_Q2 == 'The RCT improved the design of the intervention relative to projects without an RCT':
+    if RCT_Q2 == 'RCT zaviedlo do podporného nástroja prospešné zmeny v porovnaní s podpornými nástrojmi bez RCT':
         return 0
-    elif RCT_Q2 == 'The RCT did not change the design':
+    elif RCT_Q2 == 'RCT nezmenilo spôsob, akým je podporný nástroj navrhnutý':
         return 1
-    elif RCT_Q2 == 'The RCT led the intervention to be designed less well than projects without an RCT':
+    elif RCT_Q2 == 'RCT spôsobilo, že intervencia bola navrhnutá horšie ako nástroje bez RCT':
         return 2
     else:
         return 0
     
 def get_rct3_index(RCT_Q3):
-    if RCT_Q3 == 'The RCT sped up implementation of the project':
+    if RCT_Q3 == 'RCT urýchlilo implementáciu nástroja':
         return 0
-    elif RCT_Q3 == 'The RCT did not change the speed':
+    elif RCT_Q3 == 'RCT nezmenilo tempo implementácie nástroja':
         return 1
-    elif RCT_Q3 == 'The RCT slowed down the speed of implementation':
+    elif RCT_Q3 == 'RCT spomalilo tempo implementácie nástroja':
         return 2
     else:
         return 0
 
 def get_rct4_index(RCT_Q4):
-    if RCT_Q4 == 'I will trust estimates of the programs impacts from this RCT more than of other programs that use our standard M&E':
+    if RCT_Q4 == 'Budem viac dôverovať údajom o vplyve nástroja meraného pomocou metodológie RCT než v prípade hodnotenia iných nástrojov, ktoré využívajú štandardné metodológie monitorovania a hodnotenia (M&E)':
         return 0
-    elif RCT_Q4 == "I will trust estimates of this program's impacts equally as much as other programs that use our standard M&E":
+    elif RCT_Q4 == "Budem rovnako dôverovať údajom o vplyve nástroja meraného pomocou metodológie RCT ako v prípade hodnotenia iných nástrojov, ktoré využívajú štandardné metodológie M&E":
         return 1
-    elif RCT_Q4 == "I will trust estimates of this program's impacts from the RCT less than those of other programs that use our standard M&E":
+    elif RCT_Q4 == "Budem menej dôverovať údajom o vplyve nástroja meraného pomocou metodológie RCT než v prípade hodnotenia iných nástrojov, ktoré využívajú štandardné metodológie M&E":
         return 2
     else:
         return 0
@@ -70,29 +70,31 @@ def RCT_questions():
     st.subheader('Otázky týkajúce sa randomizovaných hodnotení')
     st.write('Táto časť je určená výlučne pre zástupcov Verejnej správy. Chceli by sme poznať Váš názor na randomizované kontrolované štúdie (Randomized Controlled Trials - RCT) v kontexte programu Digitrans.')
     st.write('1. Po mojich doterajších skúsenostiach spojených s účasťou na tomto projekte:')
-    RCT_Q1 = st.radio('Prosím, vyberte jednu z nasledujúcich možností', ['More interested in using RCTs for evaluation of other government projects', 'Just as interested in using RCTs for evaluation of other government projects as I was before starting this one', 'Less interested in using RCTs for evaluation of other government projects'], index = get_rct1_index(safe_var('RCT_Q1')))
+    RCT_Q1 = st.radio('Prosím, vyberte jednu z nasledujúcich možností', ['Som viac zainteresovaný/á využívať RCT na hodnotenie iných podporných nástrojov', 'Môj záujem o využívanie RCT na hodnotenie iných podporných nástrojov sa nezmenil', 'Som menej zainteresovaný/á využívať RCT na hodnotenie iných podporných nástrojov'], index = get_rct1_index(safe_var('RCT_Q1')))
     save_input_to_session_state('RCT_Q1', RCT_Q1)
     
-    st.write('2. We would like you to compare your experiences on this project that we are evaluating through an experiment to similar government projects you have worked on that have not had such an evaluation. Can you please compare this project to similar projects without an experimental evaluation in terms of:')
-    st.write('- Design of the intervention')
-    RCT_Q2 = st.radio('Prosím, vyberte jednu z nasledujúcich možností', ['The RCT improved the design of the intervention relative to projects without an RCT', 'The RCT did not change the design', 'The RCT led the intervention to be designed less well than projects without an RCT'], index = get_rct2_index(safe_var('RCT_Q2')))
+    st.write('2. Prosíme Vás o porovnanie Vašich skúseností s podporným nástrojom Digitrans, ktorý hodnotíme pomocou metodológie RCT, s podobnými nástrojmi, na ktorých ste sa zúčastnili, a ktoré neboli podrobené takémuto hodnoteniu. Prosíme o porovnanie tohto projektu s podobnými projektmi bez experimentálneho hodnotenia z hľadiska:')
+    st.write('- Navrhovania intervencie')
+    RCT_Q2 = st.radio('Prosím, vyberte jednu z nasledujúcich možností', ['RCT zaviedlo do podporného nástroja prospešné zmeny v porovnaní s podpornými nástrojmi bez RCT', 'RCT nezmenilo spôsob, akým je podporný nástroj navrhnutý', 'RCT spôsobilo, že intervencia bola navrhnutá horšie ako nástroje bez RCT'], index = get_rct2_index(safe_var('RCT_Q2')))
     save_input_to_session_state('RCT_Q2', RCT_Q2)
 
-    st.write('- Speed of Implementation')
-    RCT_Q3 = st.radio('Prosím, vyberte jednu z nasledujúcich možností', ['The RCT sped up implementation of the project', 'The RCT did not change the speed', 'The RCT slowed down the speed of implementation'],  index = get_rct3_index(safe_var('RCT_Q3')))
+    st.write('- Rýchlosti implementácie')
+    RCT_Q3 = st.radio('Prosím, vyberte jednu z nasledujúcich možností', ["RCT urýchlilo implementáciu nástroja", "RCT nezmenilo tempo implementácie nástroja", "RCT spomalilo tempo implementácie nástroja"],  index = get_rct3_index(safe_var('RCT_Q3')))
     save_input_to_session_state('RCT_Q3', RCT_Q3)
 
-    st.write('- Trustiworthiness of program impacts')
-    RCT_Q4 = st.radio('Prosím, vyberte jednu z nasledujúcich možností', ['I will trust estimates of the programs impacts from this RCT more than of other programs that use our standard M&E', "I will trust estimates of this program's impacts equally as much as other programs that use our standard M&E", "I will trust estimates of this program's impacts from the RCT less than those of other programs that use our standard M&E"],  index = get_rct4_index(safe_var('RCT_Q4')))
+    st.write('- Dôveryhodnosť informácií o výsledkoch nástroja (vplyve na činnosť firiem)')
+    RCT_Q4 = st.radio('Prosím, vyberte jednu z nasledujúcich možností', ["Budem viac dôverovať údajom o vplyve nástroja meraného pomocou metodológie RCT než v prípade hodnotenia iných nástrojov, ktoré využívajú štandardné metodológie monitorovania a hodnotenia (M&E)", "Budem rovnako dôverovať údajom o vplyve nástroja meraného pomocou metodológie RCT ako v prípade hodnotenia iných nástrojov, ktoré využívajú štandardné metodológie M&E", "Budem menej dôverovať údajom o vplyve nástroja meraného pomocou metodológie RCT než v prípade hodnotenia iných nástrojov, ktoré využívajú štandardné metodológie M&E"],  index = get_rct4_index(safe_var('RCT_Q4')))
     save_input_to_session_state('RCT_Q4', RCT_Q4)
 
-    st.write('- Do you think that thanks to the RCT you reached new beneficiaries? Do you think that it helped you disburse more funds than you originally planned?')
-    input_RCT_Q5 = st.text_input('Please, write about your experience (max 500 characters).', max_chars=500, key = 'RCT_question5', value=st.session_state.get('input_RCT_Q5', ''))
+    st.write('- Myslíte si, že vďaka RCT sa podarilo osloviť nových príjemcov programu? Myslíte si, že to pomohlo rozdeliť viac prostriedkov, ako sa pôvodne plánovalo?')
+    input_RCT_Q5 = st.text_input('Prosím, napíšte svoje skúsenosti:', max_chars=500, key = 'RCT_question5', value=st.session_state.get('input_RCT_Q5', ''))
     save_input_to_session_state('input_RCT_Q5', input_RCT_Q5)
 
-    st.write('- Do you think allocating grants randomly amongst equally eligible potential beneficiaries is ethical? Did you think so before engaging in the RCT?')
-    input_RCT_Q6 = st.text_input('Please, write about your experience (max 500 characters).', max_chars=500, value=st.session_state.get('input_RCT_Q6', ''))
+    st.write('- Myslíte si, že prideľovanie podpory s rovnakou pravdepodobnosťou medzi firmy spĺňajúce kritériá prístupu je etické? Mali ste rovnaký názor pred oboznámením sa s informáciami o metodológii RCT? Máte akékoľvek iné úvahy týkajúce sa RCT, o ktoré by ste sa chceli podeliť?')
+    input_RCT_Q6 = st.text_input('Prosím, napíšte svoje skúsenosti:', max_chars=500, value=st.session_state.get('input_RCT_Q6', ''))
     save_input_to_session_state('input_RCT_Q6', input_RCT_Q6)
+
+    st.write('Ďakujeme za Váš venovaný čas a zdieľanie Vašich cenných postrehov o pilotnom nástroji Digitrans.')
 
 
 def add_submission(df):

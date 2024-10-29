@@ -5,7 +5,7 @@ import numpy as np
 import plotly.graph_objs as go
 
 # Sidebar constants
-SIDEBAR_TITLE = "Survey Index"
+SIDEBAR_TITLE = "Index prieskumu"
 NUMBER_OF_QUESTIONS = 12
 INFORMATION_PAGES = ["Úvod", "Osobné údaje", "Inštrukcie"]
 QUESTION_PAGES = [f"Otázka {question_number}" for question_number in range(1, NUMBER_OF_QUESTIONS + 1)]
@@ -73,8 +73,8 @@ PLOT_TEXT_POSITION = "auto"
 
 PROBABILITY_TEXT_STYLE = """font-family:sans-serif; color:{}; font-size: 20px;"""
 MISSING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">Na pridelenie stále zostáva {{}}% pravdepodobnosti.</b>"""
-TOTAL_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">You have allocated all probabilities!</b>"""
-EXCEEDING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Red')}">You have inserted {{}}% more, please review your percentage distribution.</b>"""
+TOTAL_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Green')}">Rozdelili ste všetky pravdepodobnosti!</b>"""
+EXCEEDING_PROBABILITY_TEXT = f"""<b style="{PROBABILITY_TEXT_STYLE.format('Red')}">Vložili ste o {{}}% viac, skontrolujte svoje rozdelenie!</b>"""
 
 COST_BENEFIT_QUESTION_TITLE = "Otázka 11 - Pomer nákladov a prínosov"
 COST_BENEFIT_QUESTION_SUBTITLE = "Pomer prínosov a nákladov umožňuje porovnať náklady na činnosť alebo projekt s prínosmi, ktoré prináša. Napríklad: \n\n- Ak program stojí 100 000 €, a peňažná hodnota jeho prínosov je 150 000 €, pomer prínosov k nákladom by bol 1:1,5. \n- To znamená, že na každé vynaložené euro program prináša jeden a pol eura prínosov. \n- Vyšší pomer naznačuje vyššiu efektívnosť a rentabilitu programu. \n\nVzhľadom na vyššie uvedené vysvetlenie by sme chceli poznať Váš názor: \n\nPri akom pomere prínosov k nákladom by ste považovali za vhodné, aby bol pilotný program Digitrans implementovaný vo väčšom meradle? \n\nProsím, vezmite do úvahy nasledujúce predpoklady: \n\n- 'Prínosy' sú efekty pozorované po 2 rokoch fungovania programu (zahŕňajúce okrem iného dodatočné tržby a zisk vyprodukovaný firmami v Skupine 2 a peňažný ekvivalent dodatočných pracovných miest). \n- 'Náklady' zahŕňajú celkové výdavky vynaložené na implementáciu, fungovanie a udržiavanie programu (vrátane administratívnych a všeobecných nákladov)."
@@ -224,7 +224,7 @@ def table_and_plot(dataframe_name, changes_name, label_column, value_column, plo
         percentage_difference_warning(percentage_difference)
                     
     with plot_column:
-        fig = get_distribution_graph(bins_grid[label_column], bins_grid[value_column], "Expectation Range", "Pravdepodobnosť (%)")
+        fig = get_distribution_graph(bins_grid[label_column], bins_grid[value_column], "Rozsah očakávaní", "Pravdepodobnosť (%)")
         st.plotly_chart(fig, key=plot_key)
 
 

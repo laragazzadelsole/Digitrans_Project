@@ -29,9 +29,8 @@ PROFESSIONAL_CATEGORY_OPTIONS = ("Administracja publiczna", "Instytucja wdrażaj
 INSTRUCTIONS_TITLE = "Instrukcje"
 INSTRUCTIONS_SUBTITLE = """
     Poniższy przykład ma na celu pomóc Państwu zrozumieć format pytań w tej ankiecie oraz dowiedzieć się, w jaki sposób udzielać odpowiedzi dotyczące wpływu uczestnictwa w programie Digitrans na działalność beneficjentów. \\
-    Dla każdego pytania znajdą Państwo tabelę z interwałami, taką jak ta poniżej. Odpowiadając na pytanie proszę przydzielić prawdopodobieństwo każdej z sytuacji, wpisując liczbę w poszczególnych komórkach, w zależności od prawdopodobieństwa, że Państwa zdaniem wystąpi określone zdarzenie. Proszę pamiętać, że suma prawdopodobieństw przyporządkowana wszystkim styuacjom nie może przekroczyć 100%.\\
-    Na przykład wyobraźmy sobie, że pytamy o Państwa przekonania dotyczące maksymalnej temperatury w stopniach Celsjusza w Państwa mieście lub miejscowości jutro, biorąc pod uwagę, że jest lato, a prognoza pogody przewiduje ulewne deszcze od rana. Poniższa tabela zawiera przykładowe odpowiedzi.
-"""
+    Dla każdego pytania znajdą Państwo tabelę z interwałami, taką jak ta poniżej. Odpowiadając na pytanie proszę przydzielić prawdopodobieństwo każdej z sytuacji, wpisując liczbę w poszczególnych komórkach, w zależności od prawdopodobieństwa, że Państwa zdaniem wystąpi określone zdarzenie. Proszę pamiętać, że suma prawdopodobieństw przyporządkowana wszystkim sytuacjom nie może przekroczyć 100%.\\
+    """
 INSTRUCTIONS_CAPTION = """
     Na przykład wyobraźmy sobie, że pytamy o Państwa przekonania dotyczące maksymalnej temperatury w stopniach Celsjusza w Państwa mieście lub miejscowości jutro, biorąc pod uwagę, że jest lato, a prognoza pogody przewiduje ulewne deszcze od rana. Poniższa tabela zawiera przykładowe odpowiedzi.
     """
@@ -167,7 +166,7 @@ def instructions():
     table_column, plot_column = st.columns([0.3, 0.7], gap = "large")
        
     with table_column:
-        st.data_editor(values_df, use_container_width=True, hide_index=True, disabled=(label_column_title, value_column_title))
+        st.data_editor(values_df, height=int(len(values_df)* 38.2), use_container_width=True, hide_index=True, disabled=(label_column_title, value_column_title))
 
     with plot_column:
         fig = get_distribution_graph(labels_column, values_df[value_column_title], label_column_title, value_column_title)
@@ -213,14 +212,23 @@ def table_and_plot(dataframe_name, changes_name, label_column, value_column, plo
     # Split page into two columns (table, plot)
     table_column, plot_column = st.columns([0.3, 0.7], gap = "large")
 
+    if label_column == "Punkty procentowe":
+        table_height = int(len(dataframe_name)*22.5)   
+    elif label_column == "Korelacja":
+        table_height = int(len(dataframe_name)*19.7)
+    else:
+        table_height = int(len(dataframe_name)*13.1) 
+        
+
     with table_column:
-        bins_grid = st.data_editor(st.session_state[dataframe_name], hide_index=True, use_container_width=True, disabled=[label_column], \
+
+        bins_grid = st.data_editor(st.session_state[dataframe_name], height=table_height, hide_index=True, use_container_width=True, disabled=[label_column], \
                                    key=changes_name, on_change=update_dataframe_session_state, args=(changes_name, dataframe_name))
         percentage_difference = 100 - sum(bins_grid[value_column])
         percentage_difference_warning(percentage_difference)
                     
     with plot_column:
-        fig = get_distribution_graph(bins_grid[label_column], bins_grid[value_column], "Oczekiwana zmiana", "Prawdopodobieństwo (%)")
+        fig = get_distribution_graph(bins_grid[label_column], bins_grid[value_column], "Oczekiwana różnica zmiany między grupami", "Prawdopodobieństwo (%)")
         st.plotly_chart(fig, key=plot_key)
 
 
